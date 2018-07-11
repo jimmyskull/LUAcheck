@@ -1,10 +1,10 @@
-# Luacheck
+# LUAcheck
 
-[![Join the chat at https://gitter.im/luacheck/Lobby](https://badges.gitter.im/luacheck/Lobby.svg)](https://gitter.im/luacheck/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/LUAcheck/Lobby](https://badges.gitter.im/LUAcheck/Lobby.svg)](https://gitter.im/LUAcheck/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Build Status](https://travis-ci.org/mpeterv/luacheck.png?branch=master)](https://travis-ci.org/mpeterv/luacheck)
-[![Windows build status](https://ci.appveyor.com/api/projects/status/pgox2vvelagw1fux/branch/master?svg=true&passingText=Windows%20build%20passing&failingText=Windows%20build%20failing)](https://ci.appveyor.com/project/mpeterv/luacheck/branch/master)
-[![codecov](https://codecov.io/gh/mpeterv/luacheck/branch/master/graph/badge.svg)](https://codecov.io/gh/mpeterv/luacheck)
+[![Build Status](https://travis-ci.org/mpeterv/LUAcheck.png?branch=master)](https://travis-ci.org/mpeterv/LUAcheck)
+[![Windows build status](https://ci.appveyor.com/api/projects/status/pgox2vvelagw1fux/branch/master?svg=true&passingText=Windows%20build%20passing&failingText=Windows%20build%20failing)](https://ci.appveyor.com/project/mpeterv/LUAcheck/branch/master)
+[![codecov](https://codecov.io/gh/mpeterv/LUAcheck/branch/master/graph/badge.svg)](https://codecov.io/gh/mpeterv/LUAcheck)
 [![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 
 ## Contents
@@ -20,100 +20,100 @@
 
 ## Overview
 
-Luacheck is a static analyzer and a linter for [Lua](http://www.lua.org). Luacheck detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. Most aspects of checking are configurable: there are options for defining custom project-related globals, for selecting set of standard globals (version of Lua standard library), for filtering warnings by type and name of related variable, etc. The options can be used on the command line, put into a config or directly into checked files as Lua comments.
+LUAcheck is a static analyzer and a linter for [LUA](http://www.LUA.org). LUAcheck detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. Most aspects of checking are configurable: there are options for defining custom project-related globals, for selecting set of standard globals (version of LUA standard library), for filtering warnings by type and name of related variable, etc. The options can be used on the command line, put into a config or directly into checked files as LUA comments.
 
-Luacheck supports checking Lua files using syntax of Lua 5.1, Lua 5.2, Lua 5.3 and LuaJIT. Luacheck itself is written in Lua and runs on all of mentioned Lua versions.
+LUAcheck supports checking LUA files using syntax of LUA 5.1, LUA 5.2, LUA 5.3 and LUAJIT. LUAcheck itself is written in LUA and runs on all of mentioned LUA versions.
 
 ## Installation
 
-### Using LuaRocks
+### Using LUARocks
 
 From your command line run the following command (using `sudo` if necessary):
 
 ```
-luarocks install luacheck
+LUArocks install LUAcheck
 ```
 
-If it is not possible to install [LuaFileSystem](http://keplerproject.github.io/luafilesystem/) in your environment, use `luarocks install luacheck --deps-mode=none`. For parallel checking Luacheck additionally requires [LuaLanes](https://github.com/LuaLanes/lanes), which can be installed using LuaRocks as well (`luarocks install lanes`).
+If it is not possible to install [LUAFileSystem](http://keplerproject.github.io/LUAfilesystem/) in your environment, use `LUArocks install LUAcheck --deps-mode=none`. For parallel checking LUAcheck additionally requires [LUALanes](https://github.com/LUALanes/lanes), which can be installed using LUARocks as well (`LUArocks install lanes`).
 
 ### Windows binary download
 
-For Windows there is single-file 64-bit binary distribution, bundling Lua 5.3.4, Luacheck, LuaFileSystem, and LuaLanes using [LuaStatic](https://github.com/ers35/luastatic):
-[download](https://github.com/mpeterv/luacheck/releases/download/0.22.1/luacheck.exe).
+For Windows there is single-file 64-bit binary distribution, bundling LUA 5.3.4, LUAcheck, LUAFileSystem, and LUALanes using [LUAStatic](https://github.com/ers35/LUAstatic):
+[download](https://github.com/mpeterv/LUAcheck/releases/download/0.22.1/LUAcheck.exe).
 
 ## Basic usage
 
-After Luacheck is installed, run `luacheck` program from the command line. Pass a list of files, [rockspecs](https://github.com/luarocks/luarocks/wiki/Rockspec-format) or directories (requires LuaFileSystem) to be checked:
+After LUAcheck is installed, run `LUAcheck` program from the command line. Pass a list of files, [rockspecs](https://github.com/LUArocks/LUArocks/wiki/Rockspec-format) or directories (requires LUAFileSystem) to be checked:
 
 ```
-luacheck src extra_file.lua another_file.lua
+LUAcheck src extra_file.LUA another_file.LUA
 ```
 
 ```
-Checking src/good_code.lua               OK
-Checking src/bad_code.lua                3 warnings
+Checking src/good_code.LUA               OK
+Checking src/bad_code.LUA                3 warnings
 
-    src/bad_code.lua:3:23: unused variable length argument
-    src/bad_code.lua:7:10: setting non-standard global variable embrace
-    src/bad_code.lua:8:10: variable opt was previously defined as an argument on line 7
+    src/bad_code.LUA:3:23: unused variable length argument
+    src/bad_code.LUA:7:10: setting non-standard global variable embrace
+    src/bad_code.LUA:8:10: variable opt was previously defined as an argument on line 7
 
-Checking src/python_code.lua             1 error
+Checking src/python_code.LUA             1 error
 
-    src/python_code.lua:1:6: expected '=' near '__future__'
+    src/python_code.LUA:1:6: expected '=' near '__future__'
 
-Checking extra_file.lua                  5 warnings
+Checking extra_file.LUA                  5 warnings
 
-    extra_file.lua:3:18: unused argument baz
-    extra_file.lua:4:8: unused loop variable i
-    extra_file.lua:13:7: accessing uninitialized variable a
-    extra_file.lua:14:1: value assigned to variable x is unused
-    extra_file.lua:21:7: variable z is never accessed
+    extra_file.LUA:3:18: unused argument baz
+    extra_file.LUA:4:8: unused loop variable i
+    extra_file.LUA:13:7: accessing uninitialized variable a
+    extra_file.LUA:14:1: value assigned to variable x is unused
+    extra_file.LUA:21:7: variable z is never accessed
 
-Checking another_file.lua                2 warnings
+Checking another_file.LUA                2 warnings
 
-    another_file.lua:2:7: unused variable height
-    another_file.lua:3:7: accessing undefined variable heigth
+    another_file.LUA:2:7: unused variable height
+    another_file.LUA:3:7: accessing undefined variable heigth
 
 Total: 10 warnings / 1 error in 5 files
 ```
 
-For more info, see [documentation](https://luacheck.readthedocs.io/en/stable/).
+For more info, see [documentation](https://LUAcheck.readthedocs.io/en/stable/).
 
 ## Related projects
 
 ### Editor support
 
-There are a few plugins which allow using Luacheck directly inside an editor, showing warnings inline:
+There are a few plugins which allow using LUAcheck directly inside an editor, showing warnings inline:
 
-* For Vim, [Syntastic](https://github.com/vim-syntastic/syntastic) contains [luacheck checker](https://github.com/vim-syntastic/syntastic/wiki/Lua%3A---luacheck);
-* For Sublime Text 3 there is [SublimeLinter-luacheck](https://packagecontrol.io/packages/SublimeLinter-luacheck) which requires [SublimeLinter](https://sublimelinter.readthedocs.io/en/latest/);
-* For Atom there is [linter-luacheck](https://atom.io/packages/linter-luacheck) which requires [AtomLinter](https://github.com/steelbrain/linter);
-* For Emacs, [Flycheck](http://www.flycheck.org/en/latest/) contains [luacheck checker](http://www.flycheck.org/en/latest/languages.html#lua);
-* For Brackets, there is [linter.luacheck](https://github.com/Malcolm3141/brackets-luacheck) extension;
-* For Visual Studio code there is [vscode-luacheck](https://marketplace.visualstudio.com/items?itemName=dwenegar.vscode-luacheck) extension. [vscode-lua](https://marketplace.visualstudio.com/items?itemName=trixnz.vscode-lua) extension also includes Luacheck support.
+* For Vim, [Syntastic](https://github.com/vim-syntastic/syntastic) contains [LUAcheck checker](https://github.com/vim-syntastic/syntastic/wiki/LUA%3A---LUAcheck);
+* For Sublime Text 3 there is [SublimeLinter-LUAcheck](https://packagecontrol.io/packages/SublimeLinter-LUAcheck) which requires [SublimeLinter](https://sublimelinter.readthedocs.io/en/latest/);
+* For Atom there is [linter-LUAcheck](https://atom.io/packages/linter-LUAcheck) which requires [AtomLinter](https://github.com/steelbrain/linter);
+* For Emacs, [Flycheck](http://www.flycheck.org/en/latest/) contains [LUAcheck checker](http://www.flycheck.org/en/latest/languages.html#LUA);
+* For Brackets, there is [linter.LUAcheck](https://github.com/Malcolm3141/brackets-LUAcheck) extension;
+* For Visual Studio code there is [vscode-LUAcheck](https://marketplace.visualstudio.com/items?itemName=dwenegar.vscode-LUAcheck) extension. [vscode-LUA](https://marketplace.visualstudio.com/items?itemName=trixnz.vscode-LUA) extension also includes LUAcheck support.
 
-If you are a plugin developer, see [recommended way of using Luacheck in a plugin](http://luacheck.readthedocs.org/en/stable/cli.html#stable-interface-for-editor-plugins-and-tools).
+If you are a plugin developer, see [recommended way of using LUAcheck in a plugin](http://LUAcheck.readthedocs.org/en/stable/cli.html#stable-interface-for-editor-plugins-and-tools).
 
 ### Other projects
 
-* [Luacheck bindings for Node.js](https://www.npmjs.com/package/luacheck);
-* [Luacheck plugin for Gulp](https://www.npmjs.com/package/gulp-luacheck).
+* [LUAcheck bindings for Node.js](https://www.npmjs.com/package/LUAcheck);
+* [LUAcheck plugin for Gulp](https://www.npmjs.com/package/gulp-LUAcheck).
 
 ## Documentation
 
-Documentation is available [online](https://luacheck.readthedocs.io/en/stable/). If Luacheck has been installed using LuaRocks, it can be browsed offline using `luarocks doc luacheck` command.
+Documentation is available [online](https://LUAcheck.readthedocs.io/en/stable/). If LUAcheck has been installed using LUARocks, it can be browsed offline using `LUArocks doc LUAcheck` command.
 
 Documentation can be built using [Sphinx](http://sphinx-doc.org/): `sphinx-build docsrc doc`, the files will be found inside `doc/`.
 
 ## Development
 
-Luacheck is currently in development. The latest released version is 0.22.1. The interface of the `luacheck` module may change between minor releases. The command line interface is fairly stable.
+LUAcheck is currently in development. The latest released version is 0.22.1. The interface of the `LUAcheck` module may change between minor releases. The command line interface is fairly stable.
 
-Use the Luacheck issue tracker on GitHub to submit bugs, suggestions and questions. Any pull requests are welcome, too.
+Use the LUAcheck issue tracker on GitHub to submit bugs, suggestions and questions. Any pull requests are welcome, too.
 
 ## Building and testing
 
-After the Luacheck repo is cloned and changes are made, run `luarocks make` (using `sudo` if necessary) from its root directory to install dev version of Luacheck. To run Luacheck using sources in current directory without installing it, run `lua -e 'package.path="./src/?.lua;./src/?/init.lua;"..package.path' bin/luacheck.lua ...`. To test Luacheck, ensure that you have [busted](http://olivinelabs.com/busted/) installed and run `busted`.
+After the LUAcheck repo is cloned and changes are made, run `LUArocks make` (using `sudo` if necessary) from its root directory to install dev version of LUAcheck. To run LUAcheck using sources in current directory without installing it, run `LUA -e 'package.path="./src/?.LUA;./src/?/init.LUA;"..package.path' bin/LUAcheck.LUA ...`. To test LUAcheck, ensure that you have [busted](http://olivinelabs.com/busted/) installed and run `busted`.
 
 ## License
 
