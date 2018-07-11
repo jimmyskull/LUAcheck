@@ -1,15 +1,15 @@
 Configuration file
 ==================
 
-``luacheck`` tries to load configuration from ``.luacheckrc`` file in the current directory. If not found, it will look for it in the parent directory and so on, going up until it reaches file system root. Path to config can be set using ``--config`` option, in which case it will be used during recursive loading. Paths within config are interpreted relatively to the directory from which it was loaded.
+``LUAcheck`` tries to load configuration from ``.LUAcheckrc`` file in the current directory. If not found, it will look for it in the parent directory and so on, going up until it reaches file system root. Path to config can be set using ``--config`` option, in which case it will be used during recursive loading. Paths within config are interpreted relatively to the directory from which it was loaded.
 
 Config loading can be disabled using ``--no-config`` flag.
 
-If neither of ``--config``, ``--no-config``, and ``--no-default-config`` options are used, ``luacheck`` will attempt to load configuration from value of ``--default-config`` option,
-or ``%LOCALAPPDATA%\Luacheck\.luacheckrc`` on Windows, ``~/Library/Application Support/Luacheck/.luacheckrc`` on OS X/macOS, and ``$XDG_CONFIG_HOME/luacheck/.luacheckrc``
-or ``~/.config/luacheck/.luacheckrc`` on other systems by default. Paths within default config are interpreted relatively to the current directory.
+If neither of ``--config``, ``--no-config``, and ``--no-default-config`` options are used, ``LUAcheck`` will attempt to load configuration from value of ``--default-config`` option,
+or ``%LOCALAPPDATA%\LUAcheck\.LUAcheckrc`` on Windows, ``~/Library/Application Support/LUAcheck/.LUAcheckrc`` on OS X/macOS, and ``$XDG_CONFIG_HOME/LUAcheck/.LUAcheckrc``
+or ``~/.config/LUAcheck/.LUAcheckrc`` on other systems by default. Paths within default config are interpreted relatively to the current directory.
 
-Config is simply a Lua script executed by ``luacheck``. It may set various options by assigning to globals or by returning a table with option names as keys.
+Config is simply a LUA script executed by ``LUAcheck``. It may set various options by assigning to globals or by returning a table with option names as keys.
 
 Options loaded from config have the lowest priority: it's possible to overwrite them with CLI options or inline options.
 
@@ -57,9 +57,9 @@ Option                        Type                                     Default v
 ``inline``                    Boolean                                  ``true``
 ============================= ======================================== ===================
 
-An example of a config which makes ``luacheck`` ensure that only globals from the portable intersection of Lua 5.1, Lua 5.2, Lua 5.3 and LuaJIT 2.0 are used, as well as disables detection of unused arguments:
+An example of a config which makes ``LUAcheck`` ensure that only globals from the portable intersection of LUA 5.1, LUA 5.2, LUA 5.3 and LUAJIT 2.0 are used, as well as disables detection of unused arguments:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    std = "min"
@@ -74,7 +74,7 @@ Custom sets of globals
 ``std`` option allows setting a custom standard set of globals using a table. This table can have two fields: ``globals`` and ``read_globals``.
 Both of them should contain a field definition map defining some globals. The simplest way to define globals is to list their names:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    std = {
@@ -82,10 +82,10 @@ Both of them should contain a field definition map defining some globals. The si
       read_globals = {"baz", "quux"} -- these globals can only be accessed.
    }
 
-For globals defined like this Luacheck will additionally consider any fields within them defined. To define a global with a restricted set of fields, use
+For globals defined like this LUAcheck will additionally consider any fields within them defined. To define a global with a restricted set of fields, use
 global name as key and a table as value. In that table, ``fields`` subtable can contain the fields in the same format:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    std = {
@@ -106,7 +106,7 @@ global name as key and a table as value. In that table, ``fields`` subtable can 
 Globals and fields can be marked read-only or not using ``read_only`` property with a boolean value.
 Property ``other_fields`` controls whether the global or field can also contain other unspecified fields:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    std = {
@@ -128,7 +128,7 @@ Property ``other_fields`` controls whether the global or field can also contain 
 Custom sets can be given names by mutating global ``stds`` variable, so that they can then be used in ``--std`` CLI option
 and ``std`` inline and config option.
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    stds.some_lib = {...}
@@ -136,7 +136,7 @@ and ``std`` inline and config option.
 
 In config, ``globals``, ``new_globals``, ``read_globals``, and ``new_read_globals`` can also contain definitions in same format:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    read_globals = {
@@ -153,26 +153,26 @@ In config, ``globals``, ``new_globals``, ``read_globals``, and ``new_read_global
 Per-file and per-path overrides
 -------------------------------
 
-The environment in which ``luacheck`` loads the config contains a special global ``files``. When checking a file ``<path>``, ``luacheck`` will override options from the main config with entries from ``files[<glob>]`` if ``<glob>`` matches ``<path>``, applying entries for more general globs first. For example, the following config re-enables detection of unused arguments only for files in ``src/dir``, but not for files ending with ``_special.lua``, and allows using `Busted <http://olivinelabs.com/busted/>`_ globals within ``spec/``:
+The environment in which ``LUAcheck`` loads the config contains a special global ``files``. When checking a file ``<path>``, ``LUAcheck`` will override options from the main config with entries from ``files[<glob>]`` if ``<glob>`` matches ``<path>``, applying entries for more general globs first. For example, the following config re-enables detection of unused arguments only for files in ``src/dir``, but not for files ending with ``_special.LUA``, and allows using `Busted <http://olivinelabs.com/busted/>`_ globals within ``spec/``:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    std = "min"
    ignore = {"212"}
    files["src/dir"] = {enable = {"212"}}
-   files["src/dir/**/*_special.lua"] = {ignore = {"212"}}
+   files["src/dir/**/*_special.LUA"] = {ignore = {"212"}}
    files["spec"] = {std = "+busted"}
 
 Note that ``files`` table supports autovivification, so that
 
-.. code-block:: lua
+.. code-block:: LUA
 
    files["src/dir"].enable = {"212"}
 
 and
 
-.. code-block:: lua
+.. code-block:: LUA
 
    files["src/dir"] = {enable = {"212"}}
 

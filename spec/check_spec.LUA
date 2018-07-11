@@ -1,4 +1,4 @@
-local raw_check = require "luacheck.check"
+local raw_check = require "LUAcheck.check"
 
 local function remove_cyclomatic_complexity_warnings(events)
    for i = #events, 1, -1 do
@@ -323,14 +323,14 @@ return foo;
          line_lengths = {28, 38, 16, 17, 19, 17, 32, 16, 3},
          line_endings = {"comment", "comment", "comment", nil, "comment", "comment", nil, "comment", nil}
       }, check_full[[
--- luacheck: push ignore bar
-local foo, bar -- luacheck: ignore foo
--- luacheck: pop
+-- LUAcheck: push ignore bar
+local foo, bar -- LUAcheck: ignore foo
+-- LUAcheck: pop
 return function()
--- luacheck: ignore
--- luacheck: push
+-- LUAcheck: ignore
+-- LUAcheck: push
 for _ in pairs({}) do return end
--- luacheck: pop
+-- LUAcheck: pop
 end
 ]])
    end)
@@ -349,19 +349,19 @@ end
          {code = "021", msg = "empty inline option", line = 8, column = 1, end_column = 12},
          {code = "021", msg = "empty inline option invocation", line = 9, column = 1, end_column = 38}
       }, check_full[[
--- luacheck: pop
--- luacheck: push
--- luacheck: something strange
--- luacheck: std
--- luacheck: std lua51 + lua52
--- luacheck: no unused, no unused very much
--- luacheck: no ignore anything please
--- luacheck:
--- luacheck: no unused, , no redefined
+-- LUAcheck: pop
+-- LUAcheck: push
+-- LUAcheck: something strange
+-- LUAcheck: std
+-- LUAcheck: std LUA51 + LUA52
+-- LUAcheck: no unused, no unused very much
+-- LUAcheck: no ignore anything please
+-- LUAcheck:
+-- LUAcheck: no unused, , no redefined
 ]].events)
    end)
 
    it("handles argparse sample", function()
-      assert.table(check(io.open("spec/samples/argparse.lua", "rb"):read("*a")))
+      assert.table(check(io.open("spec/samples/argparse.LUA", "rb"):read("*a")))
    end)
 end)

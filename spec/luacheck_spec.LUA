@@ -1,4 +1,4 @@
-local luacheck = require "luacheck"
+local LUAcheck = require "LUAcheck"
 
 local function strip_locations(report)
    for _, file_report in ipairs(report) do
@@ -15,36 +15,36 @@ local function strip_locations(report)
    return report
 end
 
-describe("luacheck", function()
-   it("is an alias of luacheck.check_files", function()
-      assert.same(luacheck.check_files({
-         "spec/samples/good_code.lua",
-         "spec/samples/bad_code.lua",
-         "spec/samples/python_code.lua"
-      }), luacheck({
-         "spec/samples/good_code.lua",
-         "spec/samples/bad_code.lua",
-         "spec/samples/python_code.lua"
+describe("LUAcheck", function()
+   it("is an alias of LUAcheck.check_files", function()
+      assert.same(LUAcheck.check_files({
+         "spec/samples/good_code.LUA",
+         "spec/samples/bad_code.LUA",
+         "spec/samples/python_code.LUA"
+      }), LUAcheck({
+         "spec/samples/good_code.LUA",
+         "spec/samples/bad_code.LUA",
+         "spec/samples/python_code.LUA"
       }))
    end)
 
    it("panics on bad files", function()
-      assert.has_error(function() luacheck("foo") end,
-         "bad argument #1 to 'luacheck.check_files' (table expected, got string)")
-      assert.has_error(function() luacheck({123}) end,
-         "bad argument #1 to 'luacheck.check_files' (array of paths or file handles expected, got number)")
+      assert.has_error(function() LUAcheck("foo") end,
+         "bad argument #1 to 'LUAcheck.check_files' (table expected, got string)")
+      assert.has_error(function() LUAcheck({123}) end,
+         "bad argument #1 to 'LUAcheck.check_files' (array of paths or file handles expected, got number)")
    end)
 
    it("panics on bad options", function()
-      assert.has_error(function() luacheck({"foo"}, "bar") end,
-         "bad argument #2 to 'luacheck.check_files' (option table expected, got string)")
-      assert.has_error(function() luacheck({"foo"}, {globals = "bar"}) end,
-         "bad argument #2 to 'luacheck.check_files' (invalid value of option 'globals': table expected, got string)")
-      -- luacheck: no max line length
-      assert.has_error(function() luacheck({"foo"}, {{unused = 123}}) end,
-         "bad argument #2 to 'luacheck.check_files' (invalid options at index [1]: invalid value of option 'unused': boolean expected, got number)")
-      assert.has_error(function() luacheck({"foo"}, {{{}, {unused = 123}}}) end,
-         "bad argument #2 to 'luacheck.check_files' (invalid options at index [1][2]: invalid value of option 'unused': boolean expected, got number)")
+      assert.has_error(function() LUAcheck({"foo"}, "bar") end,
+         "bad argument #2 to 'LUAcheck.check_files' (option table expected, got string)")
+      assert.has_error(function() LUAcheck({"foo"}, {globals = "bar"}) end,
+         "bad argument #2 to 'LUAcheck.check_files' (invalid value of option 'globals': table expected, got string)")
+      -- LUAcheck: no max line length
+      assert.has_error(function() LUAcheck({"foo"}, {{unused = 123}}) end,
+         "bad argument #2 to 'LUAcheck.check_files' (invalid options at index [1]: invalid value of option 'unused': boolean expected, got number)")
+      assert.has_error(function() LUAcheck({"foo"}, {{{}, {unused = 123}}}) end,
+         "bad argument #2 to 'LUAcheck.check_files' (invalid options at index [1][2]: invalid value of option 'unused': boolean expected, got number)")
    end)
 
    it("works on empty list", function()
@@ -52,7 +52,7 @@ describe("luacheck", function()
          warnings = 0,
          errors = 0,
          fatals = 0
-      }, strip_locations(luacheck({})))
+      }, strip_locations(LUAcheck({})))
    end)
 
    it("works on files", function()
@@ -93,10 +93,10 @@ describe("luacheck", function()
          warnings = 5,
          errors = 1,
          fatals = 0
-      }, strip_locations(luacheck({
-         "spec/samples/good_code.lua",
-         "spec/samples/bad_code.lua",
-         "spec/samples/python_code.lua"
+      }, strip_locations(LUAcheck({
+         "spec/samples/good_code.LUA",
+         "spec/samples/bad_code.LUA",
+         "spec/samples/python_code.LUA"
       })))
    end)
 
@@ -129,10 +129,10 @@ describe("luacheck", function()
          warnings = 3,
          errors = 1,
          fatals = 0
-      }, strip_locations(luacheck({
-         "spec/samples/good_code.lua",
-         "spec/samples/bad_code.lua",
-         "spec/samples/python_code.lua"
+      }, strip_locations(LUAcheck({
+         "spec/samples/good_code.LUA",
+         "spec/samples/bad_code.LUA",
+         "spec/samples/python_code.LUA"
       }, {
          unused = false
       })))
@@ -163,10 +163,10 @@ describe("luacheck", function()
          warnings = 2,
          errors = 1,
          fatals = 0
-      }, strip_locations(luacheck({
-         "spec/samples/good_code.lua",
-         "spec/samples/bad_code.lua",
-         "spec/samples/python_code.lua"
+      }, strip_locations(LUAcheck({
+         "spec/samples/good_code.LUA",
+         "spec/samples/bad_code.LUA",
+         "spec/samples/python_code.LUA"
       }, {
          nil,
          {
@@ -181,20 +181,20 @@ end)
 
 describe("check_strings", function()
    it("panics on bad strings", function()
-      assert.has_error(function() luacheck.check_strings("foo") end,
-         "bad argument #1 to 'luacheck.check_strings' (table expected, got string)")
-      assert.has_error(function() luacheck.check_strings({1}) end,
-         "bad argument #1 to 'luacheck.check_strings' (array of strings or tables expected, got number)")
+      assert.has_error(function() LUAcheck.check_strings("foo") end,
+         "bad argument #1 to 'LUAcheck.check_strings' (table expected, got string)")
+      assert.has_error(function() LUAcheck.check_strings({1}) end,
+         "bad argument #1 to 'LUAcheck.check_strings' (array of strings or tables expected, got number)")
    end)
 
    it("panics on bad options", function()
-      assert.has_error(function() luacheck.check_strings({"foo"}, "bar") end,
-         "bad argument #2 to 'luacheck.check_strings' (option table expected, got string)")
-      assert.has_error(function() luacheck.check_strings({"foo"}, {globals = "bar"}) end,
-         "bad argument #2 to 'luacheck.check_strings' (invalid value of option 'globals': table expected, got string)")
-      -- luacheck: no max line length
-      assert.has_error(function() luacheck.check_strings({"foo"}, {{unused = 123}}) end,
-         "bad argument #2 to 'luacheck.check_strings' (invalid options at index [1]: invalid value of option 'unused': boolean expected, got number)")
+      assert.has_error(function() LUAcheck.check_strings({"foo"}, "bar") end,
+         "bad argument #2 to 'LUAcheck.check_strings' (option table expected, got string)")
+      assert.has_error(function() LUAcheck.check_strings({"foo"}, {globals = "bar"}) end,
+         "bad argument #2 to 'LUAcheck.check_strings' (invalid value of option 'globals': table expected, got string)")
+      -- LUAcheck: no max line length
+      assert.has_error(function() LUAcheck.check_strings({"foo"}, {{unused = 123}}) end,
+         "bad argument #2 to 'LUAcheck.check_strings' (invalid options at index [1]: invalid value of option 'unused': boolean expected, got number)")
    end)
 
    it("works on empty list", function()
@@ -202,7 +202,7 @@ describe("check_strings", function()
          warnings = 0,
          errors = 0,
          fatals = 0
-      }, luacheck.check_strings({}))
+      }, LUAcheck.check_strings({}))
    end)
 
    it("works on strings", function()
@@ -223,7 +223,7 @@ describe("check_strings", function()
          warnings = 1,
          errors = 1,
          fatals = 0
-      }, strip_locations(luacheck.check_strings({"return foo", "return return"})))
+      }, strip_locations(LUAcheck.check_strings({"return foo", "return return"})))
    end)
 
    it("supports comments in inline options", function()
@@ -237,7 +237,7 @@ describe("check_strings", function()
          warnings = 1,
          errors = 0,
          fatals = 0
-      }, strip_locations(luacheck.check_strings({"local foo, bar -- luacheck: ignore foo (not bar though)"})))
+      }, strip_locations(LUAcheck.check_strings({"local foo, bar -- LUAcheck: ignore foo (not bar though)"})))
    end)
 
    it("provides correct location info for warnings", function()
@@ -280,7 +280,7 @@ describe("check_strings", function()
          warnings = 4,
          errors = 0,
          fatals = 0
-      }, luacheck.check_strings({[[
+      }, LUAcheck.check_strings({[[
 :: foo
 ::local t = {}
 function t:m(x)
@@ -319,14 +319,14 @@ do return t end
          warnings = 0,
          errors = 3,
          fatals = 0
-      }, luacheck.check_strings({[[
--- luacheck: push
+      }, LUAcheck.check_strings({[[
+-- LUAcheck: push
 local function f()
-   --[=[ luacheck: pop ]=]
+   --[=[ LUAcheck: pop ]=]
 end
 
 return f --[=[
-   luacheck: some invalid comment
+   LUAcheck: some invalid comment
 ]=]
 ]]}))
    end)
@@ -393,7 +393,7 @@ return f --[=[
          warnings = 0,
          errors = 6,
          fatals = 0
-      }, luacheck.check_strings({
+      }, LUAcheck.check_strings({
          [[local x = "foo]],
          [[local x = "foo\x2]],
          [[if true ]],
@@ -415,7 +415,7 @@ return f --[=[
          warnings = 0,
          errors = 1,
          fatals = 0
-      }, strip_locations(luacheck.check_strings({"return foo", "return return"}, {ignore = {"113"}})))
+      }, strip_locations(LUAcheck.check_strings({"return foo", "return return"}, {ignore = {"113"}})))
    end)
 
    it("ignores tables with .fatal field", function()
@@ -433,40 +433,40 @@ return f --[=[
          warnings = 1,
          errors = 0,
          fatals = 1
-      }, strip_locations(luacheck.check_strings({"return foo", {fatal = "I/O"}})))
+      }, strip_locations(LUAcheck.check_strings({"return foo", {fatal = "I/O"}})))
    end)
 end)
 
 describe("get_report", function()
    it("panics on bad argument", function()
-      assert.has_error(function() luacheck.get_report({}) end,
-         "bad argument #1 to 'luacheck.get_report' (string expected, got table)")
+      assert.has_error(function() LUAcheck.get_report({}) end,
+         "bad argument #1 to 'LUAcheck.get_report' (string expected, got table)")
    end)
 
    it("returns a table", function()
-      assert.is_table(luacheck.get_report("return foo"))
+      assert.is_table(LUAcheck.get_report("return foo"))
    end)
 
    it("returns a table with single error event on syntax error", function()
-      local report = strip_locations({luacheck.get_report("return return").events})[1]
+      local report = strip_locations({LUAcheck.get_report("return return").events})[1]
       assert.same({code = "011", msg = "expected expression near 'return'"}, report[1])
    end)
 end)
 
 describe("process_reports", function()
    it("panics on bad reports", function()
-      assert.has_error(function() luacheck.process_reports("foo") end,
-         "bad argument #1 to 'luacheck.process_reports' (table expected, got string)")
+      assert.has_error(function() LUAcheck.process_reports("foo") end,
+         "bad argument #1 to 'LUAcheck.process_reports' (table expected, got string)")
    end)
 
    it("panics on bad options", function()
-      assert.has_error(function() luacheck.process_reports({{}}, "bar") end,
-         "bad argument #2 to 'luacheck.process_reports' (option table expected, got string)")
-      -- luacheck: no max line length
-      assert.has_error(function() luacheck.process_reports({{}}, {globals = "bar"}) end,
-         "bad argument #2 to 'luacheck.process_reports' (invalid value of option 'globals': table expected, got string)")
-      assert.has_error(function() luacheck.process_reports({{}}, {{unused = 123}}) end,
-         "bad argument #2 to 'luacheck.process_reports' (invalid options at index [1]: invalid value of option 'unused': boolean expected, got number)")
+      assert.has_error(function() LUAcheck.process_reports({{}}, "bar") end,
+         "bad argument #2 to 'LUAcheck.process_reports' (option table expected, got string)")
+      -- LUAcheck: no max line length
+      assert.has_error(function() LUAcheck.process_reports({{}}, {globals = "bar"}) end,
+         "bad argument #2 to 'LUAcheck.process_reports' (invalid value of option 'globals': table expected, got string)")
+      assert.has_error(function() LUAcheck.process_reports({{}}, {{unused = 123}}) end,
+         "bad argument #2 to 'LUAcheck.process_reports' (invalid options at index [1]: invalid value of option 'unused': boolean expected, got number)")
    end)
 
    it("processes reports", function()
@@ -482,8 +482,8 @@ describe("process_reports", function()
          warnings = 1,
          errors = 0,
          fatals = 0
-      }, strip_locations(luacheck.process_reports(
-         {luacheck.get_report("return foo"), luacheck.get_report("return math")})))
+      }, strip_locations(LUAcheck.process_reports(
+         {LUAcheck.get_report("return foo"), LUAcheck.get_report("return math")})))
    end)
 
    it("uses options", function()
@@ -505,8 +505,8 @@ describe("process_reports", function()
          warnings = 2,
          errors = 0,
          fatals = 0
-      }, strip_locations(luacheck.process_reports(
-         {luacheck.get_report("return foo"), luacheck.get_report("return math.floor")}, {
+      }, strip_locations(LUAcheck.process_reports(
+         {LUAcheck.get_report("return foo"), LUAcheck.get_report("return math.floor")}, {
          std = "none"
       })))
    end)
@@ -514,37 +514,37 @@ end)
 
 describe("get_message", function()
    it("panics on bad events", function()
-      assert.has_error(function() luacheck.get_message("foo") end,
-         "bad argument #1 to 'luacheck.get_message' (table expected, got string)")
+      assert.has_error(function() LUAcheck.get_message("foo") end,
+         "bad argument #1 to 'LUAcheck.get_message' (table expected, got string)")
    end)
 
    it("returns message for an event", function()
-      assert.equal("unused argument 'bar'", luacheck.get_message({
+      assert.equal("unused argument 'bar'", LUAcheck.get_message({
          code = "212",
          name = "bar"
       }))
 
-      assert.equal("shadowing definition of loop variable 'foo' on line 1", luacheck.get_message({
+      assert.equal("shadowing definition of loop variable 'foo' on line 1", LUAcheck.get_message({
          code = "423",
          name = "foo",
          line = 2,
          prev_line = 1
       }))
 
-      assert.equal("unused label 'fail'", luacheck.get_message({
+      assert.equal("unused label 'fail'", LUAcheck.get_message({
          code = "521",
          name = "unrelated",
          label = "fail"
       }))
 
-      assert.equal("value assigned to field 'actual' is overwritten on line 2 before use", luacheck.get_message({
+      assert.equal("value assigned to field 'actual' is overwritten on line 2 before use", LUAcheck.get_message({
          code = "314",
          name = "unrelated",
          field = "actual",
          overwritten_line = 2
       }))
 
-      assert.equal("value assigned to index '42' is overwritten on line 2 before use", luacheck.get_message({
+      assert.equal("value assigned to index '42' is overwritten on line 2 before use", LUAcheck.get_message({
          code = "314",
          name = "11037",
          field = "42",
@@ -552,45 +552,45 @@ describe("get_message", function()
          overwritten_line = 2
       }))
 
-      assert.equal("message goes here", luacheck.get_message({
+      assert.equal("message goes here", LUAcheck.get_message({
          code = "011",
          msg = "message goes here"
       }))
 
-      assert.equal("unexpected character near '%'", luacheck.get_message({
+      assert.equal("unexpected character near '%'", LUAcheck.get_message({
          code = "011",
          msg = "unexpected character near '%'"
       }))
 
-      assert.equal("unused recursive function 'hello'", luacheck.get_message({
+      assert.equal("unused recursive function 'hello'", LUAcheck.get_message({
          code = "211",
          name = "hello",
          func = true,
          recursive = true
       }))
 
-      assert.equal("unused mutually recursive function 'hallo'", luacheck.get_message({
+      assert.equal("unused mutually recursive function 'hallo'", LUAcheck.get_message({
          code = "211",
          name = "hallo",
          func = true,
          mutually_recursive = true
       }))
 
-      assert.equal("cyclomatic complexity of main chunk is too high (yes > please no)", luacheck.get_message({
+      assert.equal("cyclomatic complexity of main chunk is too high (yes > please no)", LUAcheck.get_message({
          code = "561",
          function_type = "main_chunk",
          complexity = "yes",
          max_complexity = "please no"
       }))
 
-      assert.equal("cyclomatic complexity of function is too high (10 > 1)", luacheck.get_message({
+      assert.equal("cyclomatic complexity of function is too high (10 > 1)", LUAcheck.get_message({
          code = "561",
          function_type = "function",
          complexity = 10,
          max_complexity = 1
       }))
 
-      assert.equal("cyclomatic complexity of function '>>=' is too high (10 > 1)", luacheck.get_message({
+      assert.equal("cyclomatic complexity of function '>>=' is too high (10 > 1)", LUAcheck.get_message({
          code = "561",
          function_type = "function",
          function_name = ">>=",
@@ -598,7 +598,7 @@ describe("get_message", function()
          max_complexity = 1
       }))
 
-      assert.equal("cyclomatic complexity of method 'foo.bar.baz' is too high (1000 > 10)", luacheck.get_message({
+      assert.equal("cyclomatic complexity of method 'foo.bar.baz' is too high (1000 > 10)", LUAcheck.get_message({
          code = "561",
          function_type = "method",
          function_name = "foo.bar.baz",

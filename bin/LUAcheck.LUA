@@ -1,2 +1,2 @@
-#!/usr/bin/env lua
-require "luacheck.main"
+#!/usr/bin/env LUA
+require "LUAcheck.main"

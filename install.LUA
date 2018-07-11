@@ -1,23 +1,23 @@
-#!/usr/bin/env lua
+#!/usr/bin/env LUA
 local dirsep = package.config:sub(1, 1)
 local is_windows = dirsep == "\\"
-package.path = "src" .. dirsep .. "?.lua"
-local has_luacheck, luacheck = pcall(require, "luacheck.init")
-assert(has_luacheck, "couldn't find luacheck module")
-local has_argparse, argparse = pcall(require, "luacheck.argparse")
+package.path = "src" .. dirsep .. "?.LUA"
+local has_LUAcheck, LUAcheck = pcall(require, "LUAcheck.init")
+assert(has_LUAcheck, "couldn't find LUAcheck module")
+local has_argparse, argparse = pcall(require, "LUAcheck.argparse")
 assert(has_argparse, "couldn't find argparse module")
-local lua_executable = assert(arg[-1], "couldn't detect Lua executable")
+local LUA_executable = assert(arg[-1], "couldn't detect LUA executable")
 
-local parser = argparse("<lua> install.lua", "Luacheck " .. luacheck._VERSION .. " installer.")
+local parser = argparse("<LUA> install.LUA", "LUAcheck " .. LUAcheck._VERSION .. " installer.")
 
 parser:argument("path", ([[
 Installation path.
-Luacheck executable scripts will be installed into <path>%sbin.
-Luacheck modules will be installed into <path>%ssrc.
-Pass . to build luacheck executable script without installing.]]):format(dirsep, dirsep))
+LUAcheck executable scripts will be installed into <path>%sbin.
+LUAcheck modules will be installed into <path>%ssrc.
+Pass . to build LUAcheck executable script without installing.]]):format(dirsep, dirsep))
 
-parser:option("--lua", "Absolute path to lua interpreter or its name if it's in PATH.", lua_executable)
-parser:option("--destdir", "Path to stage luacheck installation into")
+parser:option("--LUA", "Absolute path to LUA interpreter or its name if it's in PATH.", LUA_executable)
+parser:option("--destdir", "Path to stage LUAcheck installation into")
 
 local args = parser:parse()
 
@@ -55,97 +55,97 @@ local function copy(src, dest)
    end
 end
 
-print(("Installing luacheck %s into %s"):format(luacheck._VERSION, args.path))
+print(("Installing LUAcheck %s into %s"):format(LUAcheck._VERSION, args.path))
 print()
 
-local luacheck_executable = "bin" .. dirsep .. "luacheck"
-local luacheck_src_dir = args.path .. dirsep .. "src"
-local luacheck_lib_dir = luacheck_src_dir .. dirsep .. "luacheck"
-local luacheck_bin_dir = args.path .. dirsep .. "bin"
+local LUAcheck_executable = "bin" .. dirsep .. "LUAcheck"
+local LUAcheck_src_dir = args.path .. dirsep .. "src"
+local LUAcheck_lib_dir = LUAcheck_src_dir .. dirsep .. "LUAcheck"
+local LUAcheck_bin_dir = args.path .. dirsep .. "bin"
 
 if is_windows then
    print("    Detected Windows environment")
-   luacheck_executable = luacheck_executable .. ".bat"
+   LUAcheck_executable = LUAcheck_executable .. ".bat"
 else
    -- Close enough.
    print("    Detected POSIX environment")
 end
 
-print("    Writing luacheck executable to " .. luacheck_executable)
-local fh = assert(io.open(luacheck_executable, "wb"), "couldn't open " .. luacheck_executable)
+print("    Writing LUAcheck executable to " .. LUAcheck_executable)
+local fh = assert(io.open(LUAcheck_executable, "wb"), "couldn't open " .. LUAcheck_executable)
 
 if is_windows then
    fh:write(([=[
 @echo off
-"%s" -e "package.path=[[%%~dp0..\src\?.lua;%%~dp0..\src\?\init.lua;]]..package.path" "%%~dp0luacheck.lua" %%*
-]=]):format(args.lua))
+"%s" -e "package.path=[[%%~dp0..\src\?.LUA;%%~dp0..\src\?\init.LUA;]]..package.path" "%%~dp0LUAcheck.LUA" %%*
+]=]):format(args.LUA))
 else
    fh:write(([=[
 #!/bin/sh
-exec "%s" -e "package.path=[[%s/?.lua;%s/?/init.lua;]]..package.path" "%s/luacheck.lua" "$@"
-]=]):format(args.lua, luacheck_src_dir, luacheck_src_dir, '$(dirname "$0")'))
+exec "%s" -e "package.path=[[%s/?.LUA;%s/?/init.LUA;]]..package.path" "%s/LUAcheck.LUA" "$@"
+]=]):format(args.LUA, LUAcheck_src_dir, LUAcheck_src_dir, '$(dirname "$0")'))
 end
 
 fh:close()
 
 if not is_windows then
-   run_command(([[chmod +x "%s"]]):format(luacheck_executable))
+   run_command(([[chmod +x "%s"]]):format(LUAcheck_executable))
 end
 
 if args.path == "." then
 	print()
-	print(("Built luacheck %s executable script (%s)."):format(luacheck._VERSION, luacheck_executable))
+	print(("Built LUAcheck %s executable script (%s)."):format(LUAcheck._VERSION, LUAcheck_executable))
 	return
 end
 
-print("    Installing luacheck modules into " .. luacheck_src_dir)
-mkdir(luacheck_lib_dir)
+print("    Installing LUAcheck modules into " .. LUAcheck_src_dir)
+mkdir(LUAcheck_lib_dir)
 
 for _, filename in ipairs({
-      "init.lua",
-      "argparse.lua",
-      "builtin_standards.lua",
-      "cache.lua",
-      "check.lua",
-      "config.lua",
-      "core_utils.lua",
-      "detect_bad_whitespace.lua",
-      "detect_cyclomatic_complexity.lua",
-      "detect_globals.lua",
-      "detect_uninit_access.lua",
-      "detect_unreachable_code.lua",
-      "detect_unused_locals.lua",
-      "detect_unused_rec_funcs.lua",
-      "expand_rockspec.lua",
-      "filter.lua",
-      "format.lua",
-      "fs.lua",
-      "globbing.lua",
-      "inline_options.lua",
-      "lexer.lua",
-      "lfs_fs.lua",
-      "linearize.lua",
-      "love_standard.lua",
-      "lua_fs.lua",
-      "main.lua",
-      "name_functions.lua",
-      "multithreading.lua",
-      "ngx_standard.lua",
-      "options.lua",
-      "parser.lua",
-      "resolve_locals.lua",
-      "runner.lua",
-      "standards.lua",
-      "utils.lua",
-      "version.lua"}) do
-   copy("src" .. dirsep .. "luacheck" .. dirsep .. filename, luacheck_lib_dir)
+      "init.LUA",
+      "argparse.LUA",
+      "builtin_standards.LUA",
+      "cache.LUA",
+      "check.LUA",
+      "config.LUA",
+      "core_utils.LUA",
+      "detect_bad_whitespace.LUA",
+      "detect_cyclomatic_complexity.LUA",
+      "detect_globals.LUA",
+      "detect_uninit_access.LUA",
+      "detect_unreachable_code.LUA",
+      "detect_unused_locals.LUA",
+      "detect_unused_rec_funcs.LUA",
+      "expand_rockspec.LUA",
+      "filter.LUA",
+      "format.LUA",
+      "fs.LUA",
+      "globbing.LUA",
+      "inline_options.LUA",
+      "lexer.LUA",
+      "lfs_fs.LUA",
+      "linearize.LUA",
+      "love_standard.LUA",
+      "LUA_fs.LUA",
+      "main.LUA",
+      "name_functions.LUA",
+      "multithreading.LUA",
+      "ngx_standard.LUA",
+      "options.LUA",
+      "parser.LUA",
+      "resolve_locals.LUA",
+      "runner.LUA",
+      "standards.LUA",
+      "utils.LUA",
+      "version.LUA"}) do
+   copy("src" .. dirsep .. "LUAcheck" .. dirsep .. filename, LUAcheck_lib_dir)
 end
 
-print("    Installing luacheck executables into " .. luacheck_bin_dir)
-mkdir(luacheck_bin_dir)
-copy(luacheck_executable, luacheck_bin_dir)
-copy("bin" .. dirsep .. "luacheck.lua", luacheck_bin_dir)
+print("    Installing LUAcheck executables into " .. LUAcheck_bin_dir)
+mkdir(LUAcheck_bin_dir)
+copy(LUAcheck_executable, LUAcheck_bin_dir)
+copy("bin" .. dirsep .. "LUAcheck.LUA", LUAcheck_bin_dir)
 
 print()
-print(("Installed luacheck %s into %s."):format(luacheck._VERSION, args.path))
-print(("Please ensure that %s is in PATH."):format(luacheck_bin_dir))
+print(("Installed LUAcheck %s into %s."):format(LUAcheck._VERSION, args.path))
+print(("Please ensure that %s is in PATH."):format(LUAcheck_bin_dir))

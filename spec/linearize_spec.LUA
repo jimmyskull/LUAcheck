@@ -1,5 +1,5 @@
-local linearize = require "luacheck.linearize"
-local parser = require "luacheck.parser"
+local linearize = require "LUAcheck.linearize"
+local parser = require "LUAcheck.parser"
 
 local function get_line_(src)
    local ast = parser.parse(src)

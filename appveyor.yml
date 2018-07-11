@@ -4,11 +4,11 @@ shallow_clone: true
 
 environment:
   matrix:
-  - LUA: "lua 5.1"
-  - LUA: "lua 5.2"
-  - LUA: "lua 5.3"
-  - LUA: "luajit 2.0"
-  - LUA: "luajit 2.1"
+  - LUA: "LUA 5.1"
+  - LUA: "LUA 5.2"
+  - LUA: "LUA 5.3"
+  - LUA: "LUAjit 2.0"
+  - LUA: "LUAjit 2.1"
 
 build_script:
   - set PATH=C:\Python27\Scripts;%PATH%
@@ -16,11 +16,11 @@ build_script:
   - pip install codecov
   - hererocks here --%LUA% -r latest
   - call here\bin\activate
-  - luarocks install busted
-  - luarocks install cluacov
+  - LUArocks install busted
+  - LUArocks install cLUAcov
 
 test_script: busted -c
 
 after_test:
-  - luacov
-  - codecov -f luacov.report.out -X gcov
+  - LUAcov
+  - codecov -f LUAcov.report.out -X gcov

@@ -1,7 +1,7 @@
 build = {
    type = "builtin",
    modules = {
-      good = "spec/samples/good_code.lua",
-      bad = "spec/samples/bad_code.lua"
+      good = "spec/samples/good_code.LUA",
+      bad = "spec/samples/bad_code.LUA"
    }
 }

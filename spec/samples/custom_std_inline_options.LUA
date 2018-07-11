@@ -1,6 +1,6 @@
--- luacheck: push
--- luacheck: std +busted
+-- LUAcheck: push
+-- LUAcheck: std +busted
 tostring(setfenv, print(it))
--- luacheck: pop
--- luacheck: std other_std
+-- LUAcheck: pop
+-- LUAcheck: std other_std
 tostring(setfenv, print(it))

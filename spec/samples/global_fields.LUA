@@ -13,20 +13,20 @@ package.loaded[package] = true
 local s1 = "find"
 local s2 = "gfind"
 
--- luacheck: push std max
+-- LUAcheck: push std max
 print(string[s1])
 print(string[s2])
--- luacheck: pop
+-- LUAcheck: pop
 
--- luacheck: push std min
+-- LUAcheck: push std min
 print(string[s1])
 print(string[s2])
--- luacheck: pop
+-- LUAcheck: pop
 
--- luacheck: not globals string.find
+-- LUAcheck: not globals string.find
 print(string[s1])
 
--- luacheck: globals nest.nest.nest
+-- LUAcheck: globals nest.nest.nest
 nest.nest = "nest"
 
 print(server)
@@ -37,6 +37,6 @@ server.baz = "abcd"
 print(server.baz.abcd)
 server.sessions["hey"] = "you"
 
--- luacheck: std +my_server
+-- LUAcheck: std +my_server
 server.bar = 1
 server.baz = 2

@@ -1,8 +1,8 @@
 local helper = {}
 
-local function get_lua()
+local function get_LUA()
    local index = -1
-   local res = "lua"
+   local res = "LUA"
 
    while arg[index] do
       res = arg[index]
@@ -20,40 +20,40 @@ local function antipath(path)
    return (".."..dir_sep):rep(level)
 end
 
-function helper.luacov_config(prefix)
+function helper.LUAcov_config(prefix)
    return {
-      statsfile = prefix.."luacov.stats.out",
+      statsfile = prefix.."LUAcov.stats.out",
       modules = {
-         luacheck = "src/luacheck/init.lua",
-         ["luacheck.*"] = "src"
+         LUAcheck = "src/LUAcheck/init.LUA",
+         ["LUAcheck.*"] = "src"
       },
       exclude = {
-         "bin/luacheck$",
-         "luacheck/argparse$"
+         "bin/LUAcheck$",
+         "LUAcheck/argparse$"
       }
    }
 end
 
-local luacov = package.loaded["luacov.runner"]
-local lua
+local LUAcov = package.loaded["LUAcov.runner"]
+local LUA
 
--- Returns command that runs `luacheck` executable from `loc_path`.
-function helper.luacheck_command(loc_path)
-   lua = lua or get_lua()
+-- Returns command that runs `LUAcheck` executable from `loc_path`.
+function helper.LUAcheck_command(loc_path)
+   LUA = LUA or get_LUA()
    loc_path = loc_path or "."
    local prefix = antipath(loc_path)
-   local cmd = ("cd %s && %s"):format(loc_path, lua)
+   local cmd = ("cd %s && %s"):format(loc_path, LUA)
 
-   -- Extend package.path to allow loading this helper and luacheck modules.
-   cmd = cmd..(' -e "package.path=[[%s?.lua;%ssrc%s?.lua;%ssrc%s?%sinit.lua;]]..package.path"'):format(
+   -- Extend package.path to allow loading this helper and LUAcheck modules.
+   cmd = cmd..(' -e "package.path=[[%s?.LUA;%ssrc%s?.LUA;%ssrc%s?%sinit.LUA;]]..package.path"'):format(
       prefix, prefix, dir_sep, prefix, dir_sep, dir_sep)
 
-   if luacov then
-      -- Launch luacov.
-      cmd = cmd..(' -e "require[[luacov.runner]](require[[spec.helper]].luacov_config([[%s]]))"'):format(prefix)
+   if LUAcov then
+      -- Launch LUAcov.
+      cmd = cmd..(' -e "require[[LUAcov.runner]](require[[spec.helper]].LUAcov_config([[%s]]))"'):format(prefix)
    end
 
-   return ("%s %sbin%sluacheck.lua"):format(cmd, prefix, dir_sep)
+   return ("%s %sbin%sLUAcheck.LUA"):format(cmd, prefix, dir_sep)
 end
 
 return helper

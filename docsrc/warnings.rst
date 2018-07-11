@@ -1,7 +1,7 @@
 List of warnings
 ================
 
-Warnings produced by Luacheck are categorized using three-digit warning codes. Warning codes can be displayed in CLI output using ``--codes`` CLI option or ``codes`` config option. Errors also have codes starting with zero; unlike warnings, they can not be ignored.
+Warnings produced by LUAcheck are categorized using three-digit warning codes. Warning codes can be displayed in CLI output using ``--codes`` CLI option or ``codes`` config option. Errors also have codes starting with zero; unlike warnings, they can not be ignored.
 
 ==== =================================================================
 Code Description
@@ -62,7 +62,7 @@ Code Description
 Global variables (1xx)
 ----------------------
 
-For each file, Luacheck builds list of defined globals and fields which can be used there. By default only globals from Lua standard library are defined; custom globals can be added using ``--globals`` CLI option or ``globals`` config option, and version of standard library can be selected using ``--std`` CLI option or ``std`` config option. When an undefined global or field is set, mutated or accessed, Luacheck produces a warning.
+For each file, LUAcheck builds list of defined globals and fields which can be used there. By default only globals from LUA standard library are defined; custom globals can be added using ``--globals`` CLI option or ``globals`` config option, and version of standard library can be selected using ``--std`` CLI option or ``std`` config option. When an undefined global or field is set, mutated or accessed, LUAcheck produces a warning.
 
 Read-only globals
 ^^^^^^^^^^^^^^^^^
@@ -72,7 +72,7 @@ By default, most standard globals and fields are marked as read-only, so that se
 Globals and fields that are not read-only by default:
 
 * ``_G``
-* ``_ENV`` (treated as a global by Luacheck)
+* ``_ENV`` (treated as a global by LUAcheck)
 * ``package.path``
 * ``package.cpath``
 * ``package.loaded``
@@ -85,26 +85,26 @@ Globals and fields that are not read-only by default:
 Implicitly defined globals
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Luacheck can be configured to consider globals assigned under some conditions to be defined implicitly. When ``-d``/``--allow_defined`` CLI option or ``allow_defined`` config option is used, all assignments to globals define them; when ``-t``/``--allow_defined_top`` CLI option or ``allow_defined_top`` config option is used, assignments to globals in the top level function scope (also known as main chunk) define them. A warning is produced when an implicitly defined global is not accessed anywhere.
+LUAcheck can be configured to consider globals assigned under some conditions to be defined implicitly. When ``-d``/``--allow_defined`` CLI option or ``allow_defined`` config option is used, all assignments to globals define them; when ``-t``/``--allow_defined_top`` CLI option or ``allow_defined_top`` config option is used, assignments to globals in the top level function scope (also known as main chunk) define them. A warning is produced when an implicitly defined global is not accessed anywhere.
 
 .. _modules:
 
 Modules
 ^^^^^^^
 
-Files can be marked as modules using ``-m``/``--module`` CLI option or ``module`` config option to simulate semantics of the deprecated `module <http://www.lua.org/manual/5.1/manual.html#pdf-module>`_ function. Globals implicitly defined inside a module are considired part of its interface, are not visible outside and are not reported as unused. Assignments to other globals are not allowed, even to defined ones.
+Files can be marked as modules using ``-m``/``--module`` CLI option or ``module`` config option to simulate semantics of the deprecated `module <http://www.LUA.org/manual/5.1/manual.html#pdf-module>`_ function. Globals implicitly defined inside a module are considired part of its interface, are not visible outside and are not reported as unused. Assignments to other globals are not allowed, even to defined ones.
 
 Unused variables (2xx) and values (3xx)
 ---------------------------------------
 
-Luacheck generates warnings for all unused local variables except one named ``_``. It also detects variables which are set but never accessed or accessed but never set.
+LUAcheck generates warnings for all unused local variables except one named ``_``. It also detects variables which are set but never accessed or accessed but never set.
 
 Unused values and uninitialized variables
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For each value assigned to a local variable, Luacheck computes set of expressions where it could be used. Warnings are produced for unused values (when a value can't be used anywhere) and for accessing uninitialized variables (when no values can reach an expression). E.g. in the following snippet value assigned to ``foo`` on line 1 is unused, and variable ``bar`` is uninitialized on line 9:
+For each value assigned to a local variable, LUAcheck computes set of expressions where it could be used. Warnings are produced for unused values (when a value can't be used anywhere) and for accessing uninitialized variables (when no values can reach an expression). E.g. in the following snippet value assigned to ``foo`` on line 1 is unused, and variable ``bar`` is uninitialized on line 9:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    local foo = expr1()
@@ -127,7 +127,7 @@ Secondary values and variables
 
 Unused value assigned to a local variable is secondary if its origin is the last item on the RHS of assignment, and another value from that item is used. Secondary values typically appear when result of a function call is put into locals, and only some of them are later used. For example, here value assigned to ``b`` is secondary, value assigned to ``c`` is used, and value assigned to ``a`` is simply unused:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    local a, b, c = f(), g()
@@ -141,11 +141,11 @@ Warnings related to unused secondary values and variables can be removed using `
 Shadowing declarations (4xx)
 ----------------------------
 
-Luacheck detects declarations of local variables shadowing previous declarations, unless the variable is named ``_``. If the previous declaration is in the same scope as the new one, it is called redefining.
+LUAcheck detects declarations of local variables shadowing previous declarations, unless the variable is named ``_``. If the previous declaration is in the same scope as the new one, it is called redefining.
 
 Note that it is **not** necessary to define a new local variable when overwriting an argument:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    local function f(x)
@@ -162,9 +162,9 @@ Control flow and data flow issues (5xx)
 Unreachable code
 ^^^^^^^^^^^^^^^^
 
-Luacheck detects unreachable code. It also detects it if end of a loop block is unreachable, which means that the loop can be executed at most once:
+LUAcheck detects unreachable code. It also detects it if end of a loop block is unreachable, which means that the loop can be executed at most once:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    for i = 1, 100 do
@@ -181,11 +181,11 @@ Labels that are not used by any ``goto`` statements are reported as unused.
 Unbalanced assignments
 ^^^^^^^^^^^^^^^^^^^^^^
 
-If an assignment has left side and right side with different lengths, the assignment is unbalanced and Luacheck warns about it.
+If an assignment has left side and right side with different lengths, the assignment is unbalanced and LUAcheck warns about it.
 
 An exception is initializing several local variables in a single statement while leaving some uninitialized:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    local a, b, c = nil -- Effectively sets `a`, `b`, and `c` to nil, no warning.
@@ -193,18 +193,18 @@ An exception is initializing several local variables in a single statement while
 Empty blocks
 ^^^^^^^^^^^^
 
-Luacheck warns about empty ``do`` ``end`` blocks and empty ``if`` branches (``then`` ``else``, ``then`` ``elseif``, and ``then`` ``end``).
+LUAcheck warns about empty ``do`` ``end`` blocks and empty ``if`` branches (``then`` ``else``, ``then`` ``elseif``, and ``then`` ``end``).
 
 Empty statements
 ^^^^^^^^^^^^^^^^
 
-In Lua 5.2+ semicolons are considered statements and can appear even when not following normal statements. Such semicolons
-produce Luacheck warnings as they are completely useless.
+In LUA 5.2+ semicolons are considered statements and can appear even when not following normal statements. Such semicolons
+produce LUAcheck warnings as they are completely useless.
 
 Cyclomatic complexity
 ^^^^^^^^^^^^^^^^^^^^^
 
-If a limit is set using ``--max-cyclomatic-complexity`` CLI option or corresponding config or inline options, Luacheck warns about functions
+If a limit is set using ``--max-cyclomatic-complexity`` CLI option or corresponding config or inline options, LUAcheck warns about functions
 with too high cyclomatic complexity.
 
 Formatting issues (6xx)
@@ -213,11 +213,11 @@ Formatting issues (6xx)
 Whitespace issues
 ^^^^^^^^^^^^^^^^^
 
-Luacheck warns about trailing whitespace and inconsistent indentation (``SPACE`` followed by ``TAB``).
+LUAcheck warns about trailing whitespace and inconsistent indentation (``SPACE`` followed by ``TAB``).
 
-Some examples of trailing whitespace Luacheck finds:
+Some examples of trailing whitespace LUAcheck finds:
 
-.. code-block:: lua
+.. code-block:: LUA
    :linenos:
 
    -- Whitespace example.
@@ -236,7 +236,7 @@ Trailing whitespace in any of these forms is useless, can be a nuisance to devel
 Line length limits
 ^^^^^^^^^^^^^^^^^^
 
-Luacheck warns about lines that are longer then some limit. Default limit is ``120`` characters. It's possible
+LUAcheck warns about lines that are longer then some limit. Default limit is ``120`` characters. It's possible
 to change this limit using ``--max-line-length`` CLI option or disable the check completely with
 ``--no-max-line-length``; there are similar config and inline options.
 

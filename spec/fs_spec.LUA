@@ -1,7 +1,7 @@
 local lfs = require "lfs"
 
-local fs = require "luacheck.fs"
-local utils = require "luacheck.utils"
+local fs = require "LUAcheck.fs"
+local utils = require "LUAcheck.utils"
 local P = fs.normalize
 
 describe("fs", function()
@@ -76,13 +76,13 @@ describe("fs", function()
 
       it("returns nil if can't find file", function()
          assert.is_nil(
-            fs.find_file(fs.get_current_dir(), "this file shouldn't exist or it will make luacheck testsuite break"))
+            fs.find_file(fs.get_current_dir(), "this file shouldn't exist or it will make LUAcheck testsuite break"))
       end)
    end)
 end)
 
-for _, fs_name in ipairs({"lua_fs", "lfs_fs"}) do
-   local base_fs = require("luacheck." .. fs_name)
+for _, fs_name in ipairs({"LUA_fs", "lfs_fs"}) do
+   local base_fs = require("LUAcheck." .. fs_name)
 
    describe(fs_name, function()
       describe("get_current_dir", function()

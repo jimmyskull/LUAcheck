@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# luacheck documentation build configuration file, created by
+# LUAcheck documentation build configuration file, created by
 # sphinx-quickstart on Thu Sep  4 16:25:37 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -40,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'luacheck'
+project = u'LUAcheck'
 copyright = u'2014 - 2018, Peter Melnichenko'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -181,7 +181,7 @@ html_static_path = []
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'luacheckdoc'
+htmlhelp_basename = 'LUAcheckdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -201,7 +201,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ('index', 'luacheck.tex', u'luacheck Documentation',
+    ('index', 'LUAcheck.tex', u'LUAcheck Documentation',
      u'Peter Melnichenko', 'manual'),
 ]
 
@@ -231,7 +231,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'luacheck', u'luacheck Documentation',
+    ('index', 'LUAcheck', u'LUAcheck Documentation',
      [u'Peter Melnichenko'], 1)
 ]
 
@@ -245,8 +245,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'luacheck', u'luacheck Documentation',
-     u'Peter Melnichenko', 'luacheck', 'A simple Lua static analyzer.',
+    ('index', 'LUAcheck', u'LUAcheck Documentation',
+     u'Peter Melnichenko', 'LUAcheck', 'A simple LUA static analyzer.',
      'Miscellaneous'),
 ]
 

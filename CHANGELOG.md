@@ -14,15 +14,15 @@
   functions with complexity higher than a configurable limit; disabled
   by default (#141).
 * Added a built-in formatter printing warnings and errors in a format
-  understood by MSBuild/Visual Studio if `luacheck` is
+  understood by MSBuild/Visual Studio if `LUAcheck` is
   used as a custom build step (#142).
 * `ranges` and `quiet` options can now be used in config, e.g. `quiet = 1` to
   disable `OK` lines in default formatter output.
-* `luacheck` module now adds `prev_line`, `prev_column`, and `prev_end_column`
+* `LUAcheck` module now adds `prev_line`, `prev_column`, and `prev_end_column`
   fields to syntax error events if they refer to some extra location:
   redefined label errors point to the previous definition,
   unpaired tokens such as `function`/`end` point to the the first token (#134).
-* `luacheck` module now adds `prev_end_column` field to warning events that
+* `LUAcheck` module now adds `prev_end_column` field to warning events that
   already have `prev_line` and `prev_column` fields, and `overwritten_end_column`
   for warnings with `overwritten_line` and `overwritten_column`.
 * Improved error messages for invalid options and config: when an option is
@@ -32,8 +32,8 @@
   directory is now reported separately, and other found files and directories
   are checked anyway. Previously any error when listing any nested directory
   resulted in immediate failure for the entire parent directory (#159).
-* When `--[no-]cache` CLI option is used with LuaFileSystem not found,
-  it is now ignored instead of causing an error. Missing LuaFileSystem is now
+* When `--[no-]cache` CLI option is used with LUAFileSystem not found,
+  it is now ignored instead of causing an error. Missing LUAFileSystem is now
   mentioned in the help message next to features disabled without it.
 
 ### Fixes
@@ -50,10 +50,10 @@
 
 ### Miscellaneous
 
-* Installer script (install.lua) is deprecated. Future versions of Luacheck
-  may have required dependencies. Luacheck can still be installed manually
-  by recursively copying `src/luacheck` to a directory in `package.path`
-  and copying `bin/luacheck.lua` to a directory in `PATH` as `luacheck`.
+* Installer script (install.LUA) is deprecated. Future versions of LUAcheck
+  may have required dependencies. LUAcheck can still be installed manually
+  by recursively copying `src/LUAcheck` to a directory in `package.path`
+  and copying `bin/LUAcheck.LUA` to a directory in `PATH` as `LUAcheck`.
 
 ## 0.21.2 (2017-11-13)
 
@@ -67,7 +67,7 @@
 
 ### Fixes
 
-* Added missing definition of `ngx.ERROR` constant to `ngx_lua` std (#123).
+* Added missing definition of `ngx.ERROR` constant to `ngx_LUA` std (#123).
 * Fixed unused values and initialized accesses not being reported when the
   access is in a closure defined in code path incompatible with the value
   assignment (#126).
@@ -82,31 +82,31 @@
 * Error messages for invalid inline options are now a bit better, including
   reason why an inline option invocation is invalid and what is the name
   of the option at fault.
-* `ngx_lua` std now contains full API definition for lua-nginx-module 0.10.10,
+* `ngx_LUA` std now contains full API definition for LUA-nginx-module 0.10.10,
   so that operations on unknown fields within `ngx` global
   are now reported (#118).
 
 ### Fixes
 
-* `luacheck` no longer aborts on internal error while checking files
+* `LUAcheck` no longer aborts on internal error while checking files
   in parallel.
 
 ## 0.20.0 (2017-05-08)
 
 ### Breaking changes
 
-* `luacheck` now exits with `2` instead of `1` if there are syntax errors
+* `LUAcheck` now exits with `2` instead of `1` if there are syntax errors
   or invalid inline options present. It now exits with `3` instead of
   `2` if I/O errors are present. It now exits with `4` instead of `3`
   on a critical error (#94).
 
 ### New features and improvements
 
-* If project-specific `.luacheckrc` is not found, `luacheck` will now use
+* If project-specific `.LUAcheckrc` is not found, `LUAcheck` will now use
   config from some global location if it is present there. Default global
-  location is `%LOCALAPPDATA%\Luacheck\.luacheckrc` on Windows,
-  `~/Library/Application Support/Luacheck/.luacheckrc` on OS X/macOS, and
-  `$XDG_CONFIG_HOME/luacheck/.luacheckrc` or `~/.config/luacheck/.luacheckrc`
+  location is `%LOCALAPPDATA%\LUAcheck\.LUAcheckrc` on Windows,
+  `~/Library/Application Support/LUAcheck/.LUAcheckrc` on OS X/macOS, and
+  `$XDG_CONFIG_HOME/LUAcheck/.LUAcheckrc` or `~/.config/LUAcheck/.LUAcheckrc`
   on other systems. This behaviour can be tweaked with `--default-config` and
   `--no-default-config` options (#102).
 * New `--[no-]max-code-line-length`, `--[no-]max-string-line-length`,
@@ -119,8 +119,8 @@
 * For warnings about unused values and fields, if the value is always
   overwritten by a single other value, location of the overwriting
   assignment is mentioned in the warning message (#106).
-* When attempting to check a directory while LuaFileSystem is not installed,
-  `luacheck` now mentions that LuaFileSystem is required in the error
+* When attempting to check a directory while LUAFileSystem is not installed,
+  `LUAcheck` now mentions that LUAFileSystem is required in the error
   message (#103).
 * Improved warning message for unbalanced assignment warnings (#104).
 
@@ -140,14 +140,14 @@
 
 ### New features and improvements
 
-* Luacheck can now detect mutations and accesses of specific fields
+* LUAcheck can now detect mutations and accesses of specific fields
   within globals. Standard global definitions have been updated
   to provide precise lists of allowed fields. This also
   works through local aliases (e.g. `local t = table; t.upsert()`
   produces a warning, but `local t = table; t.insert()` does not).
 * Default set of allowed globals is now equal to globals normally
-  provided by version of Lua used to run Luacheck, instead of
-  all globals set in the interpreter while it runs Luacheck.
+  provided by version of LUA used to run LUAcheck, instead of
+  all globals set in the interpreter while it runs LUAcheck.
 * All options that operate on lists of global names can now use
   field names as well. E.g. `--not-globals string.len` undefines
   standard field `string.len`. Additionally, config options
@@ -158,7 +158,7 @@
   option.
 * Warnings related to trailing whitespace in comments
   and inside string literals now use separate warning codes.
-* Luacheck no longer reports a crash with a long traceback when
+* LUAcheck no longer reports a crash with a long traceback when
   interrupted, instead it simply exits with an error message.
 
 ### Fixes
@@ -179,12 +179,12 @@
   in overwriting settings (previously `globals` had priority
   over `read_globals` even if `read_globals` was the last
   option used).
-* Luacheck exit codes are now documented.
+* LUAcheck exit codes are now documented.
 
 ### Fixes
 
 * Warnings that are explictly enabled by inline options are
-  now correctly reported. E.g. `--luacheck: std none` now
+  now correctly reported. E.g. `--LUAcheck: std none` now
   results in warnings for any used globals (#51).
 
 ## 0.17.1 (2016-12-22)
@@ -193,10 +193,10 @@
 
 * Fixed error when using cache and there are warnings with
   codes `314` or `521`.
-* Globals in `rockspec` std and `ngx` global in `ngx_lua` std are
+* Globals in `rockspec` std and `ngx` global in `ngx_LUA` std are
   no longer read-only (#87).
 * Reverted changes to exit codes that conflicted with assumptions
-  made by luacheck checker in Syntastic (#85).
+  made by LUAcheck checker in Syntastic (#85).
 
 ## 0.17.0 (2016-11-18)
 
@@ -236,7 +236,7 @@
 
 ### Fixes
 
-* `luacheck: ignore` now correctly filters out `5xx` and `314` warnings (#71).
+* `LUAcheck: ignore` now correctly filters out `5xx` and `314` warnings (#71).
 
 ## 0.15.1 (2016-06-09)
 
@@ -253,8 +253,8 @@
 ### Fixes
 
 * Fixed error when checking a file with a hexadecimal number using
-  Lua 5.1 on Windows (#57).
-* Fixed luacheck using wrong path when checking a file in a subdirectory with
+  LUA 5.1 on Windows (#57).
+* Fixed LUAcheck using wrong path when checking a file in a subdirectory with
   single character name (#59).
 
 ## 0.14.0 (2016-02-25)
@@ -267,7 +267,7 @@
 * Globs can be used to select paths when applying option overrides
   in config (#52).
 * Inline options can contain notes in parentheses.
-* `--jobs` option (multithreading) is used by default with LuaLanes found,
+* `--jobs` option (multithreading) is used by default with LUALanes found,
   number of threads used is set to number of available processing units.
 * Better error messages are provided on I/O and other errors
   when reading files, loading configs and rockspecs, etc.
@@ -280,11 +280,11 @@
 
 * Empty statements (semicolons without preceding statements) are
   reported (#44).
-* Inline option `luacheck: push` can be followed by other options on
-  the same line, e.g. `luacheck: push ignore`.
+* Inline option `LUAcheck: push` can be followed by other options on
+  the same line, e.g. `LUAcheck: push ignore`.
 * Better syntax error messages.
 * When recursively checking directories and `--include-files` is used,
-  files are not filtered by `.lua` extension (#43).
+  files are not filtered by `.LUA` extension (#43).
 
 ### Fixes
 
@@ -294,7 +294,7 @@
 
 ### New features and improvements
 
-* New `ngx_lua` globals set for Openresty ngx_lua module (#41).
+* New `ngx_LUA` globals set for Openresty ngx_LUA module (#41).
 * Better CLI error messages.
 
 ### Fixes
@@ -332,14 +332,14 @@
 * Removed `.vararg` field for warnings related to varargs,
   check `.name == "..."` instead.
 * Errors now also have codes, starting with `0`, and are returned
-  together with warnings from `luacheck.*` functions (#31).
+  together with warnings from `LUAcheck.*` functions (#31).
 
 ### New features and improvements
 
 * During config lookup all directories starting from current one and up to
   file system root are traversed in search of config.
   Path-related data from config loaded from an upper directory is adjusted
-  to work as if Luacheck was started from the directory with config (#20).
+  to work as if LUAcheck was started from the directory with config (#20).
 * New `--exclude-files` and `--include-files` options for
   file filtering using globbing patterns (#21).
 * More CLI and config options can be used inline.
@@ -349,7 +349,7 @@
 * New built-in global set `busted` containing globals of
   Busted testing framework.
 * Stable interface for editor plugins.
-* New `luacheck.get_message` function for formatting
+* New `LUAcheck.get_message` function for formatting
   a message for a warning or error.
 * Sets of standard globals can be merged using `+`.
 * If value of `std` option starts with `+`, new set is added to
@@ -364,7 +364,7 @@
 * New sets of standard globals can be created by mutating
   global `stds` in config.
 * `formatter` config option now accepts functions.
-* Warnings returned from `luacheck.*` functions now have =
+* Warnings returned from `LUAcheck.*` functions now have =
   `.end_column` field with last column of related token.
 * JUnit formatter now produces a testcase per each issue.
 
@@ -372,7 +372,7 @@
 
 * Fixed validation error when attempting to use `formatter` option in config.
 * Fixed incorrect error location for `invalid escape sequence` syntax errors.
-* FIxed spurious quotes in typecheck error messages in `luacheck.*` functions.
+* FIxed spurious quotes in typecheck error messages in `LUAcheck.*` functions.
 * UTF BOM is now stripped when reading files.
 
 ## 0.10.0 (2015-03-13)
@@ -390,9 +390,9 @@
 * Added caching of check results (`--cache` and `--no-cache` options).
 * Added parallel checking (`--jobs`/`-j` option).
 * Added reporting of syntax error message and location in CLI (#17).
-* Added `--version` command for showing versions of Luacheck
+* Added `--version` command for showing versions of LUAcheck
   and its dependencies.
-* Added more functions to `luacheck` Lua module.
+* Added more functions to `LUAcheck` LUA module.
 
 ### Fixes
 
@@ -400,13 +400,13 @@
 
 ### Miscellaneous
 
-* Added installer script (`install.lua`).
+* Added installer script (`install.LUA`).
 
 ## 0.9.0 (2015-02-15)
 
 ### New features and improvements
 
-* Added inline options: a way to precisely configure luacheck using
+* Added inline options: a way to precisely configure LUAcheck using
   inline comments of special format (#16).
 * Added an option to use custom output formatters;
   TAP and JUnit formatters are built-in (#19).
@@ -431,7 +431,7 @@
   are so by default).
 * Added possibility to overwrite options on per-directory basis in config.
 * Some CLI-specific options can now be used in config (e.g. `color`).
-* Added standard global sets for Lua 5.3.
+* Added standard global sets for LUA 5.3.
 
 ### Miscellaneous
 
@@ -478,27 +478,27 @@
 ### Fixes
 
 * Fixed ignoring `std` config option.
-* Fixed incompatibility with Lua 5.3.
+* Fixed incompatibility with LUA 5.3.
 
 ## 0.6.0 (2014-11-01)
 
 ### New features and improvements
 
-* Luacheck can now check programs which use syntax introduced in Lua 5.2,
-  Lua 5.3 and LuaJIT 2.0.
-* Luacheck is now faster.
-* Luacheck now exits with an error if it couldn't load a config due to an I/O,
+* LUAcheck can now check programs which use syntax introduced in LUA 5.2,
+  LUA 5.3 and LUAJIT 2.0.
+* LUAcheck is now faster.
+* LUAcheck now exits with an error if it couldn't load a config due to an I/O,
   syntax, runtime or validation error.
 
 ### Miscellaneous
 
-* Removed dependency on MetaLua parser.
+* Removed dependency on MetaLUA parser.
 
 ## 0.5.0 (2014-09-06)
 
 ### Breaking changes
 
-* Changed the interface of `luacheck` module.
+* Changed the interface of `LUAcheck` module.
 * Changed what `-qq` and `-qqq` do.
 
 ### New features and improvements
@@ -508,7 +508,7 @@
 * Filter out warnings about redefined `_` (#5).
 * `--globals`, `--ignore` and `--only` can now be used several times.
 * Passing `-` as an argument now checks stdin.
-* Passing a directory as an argument checks all `.lua` files inside it.
+* Passing a directory as an argument checks all `.LUA` files inside it.
 * Added config loading (#1).
 * Added `--std` option, adding globals via `--globals` now does not require
   passing a dash.
@@ -526,19 +526,19 @@
 
 * Unused values (e.g. `local a = expr1; ... a = expr2`) are now detected.
 * In CLI, rockspecs (arguments ending with `.rockspec`) now expand into list
-  of related `.lua` files.
+  of related `.LUA` files.
 * Unused varargs are now detected.
 
 ## 0.3.0 (2014-04-25)
 
 ### New features and improvements
 
-* Luacheck is now _ENV-aware: "globals" inside chunks with custom
+* LUAcheck is now _ENV-aware: "globals" inside chunks with custom
   `_ENV` are ignored, but their presence marks the `_ENV` variable as used;
   accessing the outermost ("default") `_ENV` is permitted, too.
 * In `--globals` option of the CLI hyphen now expands to all standard
   global variables.
-* New `-c`/`--compat` flag defines some additional globals for Lua 5.1/5.2
+* New `-c`/`--compat` flag defines some additional globals for LUA 5.1/5.2
   compatibility (e.g. `setfenv`).
 * New `-l`/`--limit` option allows setting a limit of warnings.
   If the limit is not exceeded, the CLI exits with `0`.
@@ -551,10 +551,10 @@
 
 * Command-line interface now prints per-file reports as they are produced
   instead of waiting for all files to be checked.
-* Luacheck now recognizes different types of variables (normal locals,
+* LUAcheck now recognizes different types of variables (normal locals,
   function arguments and loop variables) and reports them accordingly.
-* Luacheck now distinguishes accessing global variables from setting them.
-* In command-line interface `-q` switch makes luacheck only print total
+* LUAcheck now distinguishes accessing global variables from setting them.
+* In command-line interface `-q` switch makes LUAcheck only print total
   number of warnings instead of suppressing output completely.
 
 ## 0.1.0 (2014-03-25)

@@ -1,5 +1,5 @@
-local globbing = require "luacheck.globbing"
-local fs = require "luacheck.fs"
+local globbing = require "LUAcheck.globbing"
+local fs = require "LUAcheck.fs"
 
 local cur_dir = fs.get_current_dir()
 
@@ -67,14 +67,14 @@ describe("globbing", function()
       end)
 
       it("understands recursive globbing using **", function()
-         check_match(true, "**/*.lua", "foo.lua")
-         check_match(true, "**/*.lua", "foo/bar.lua")
-         check_match(false, "foo/**/*.lua", "bar.lua")
-         check_match(false, "foo/**/*.lua", "foo.lua")
-         check_match(true, "foo/**/bar/*.lua", "foo/bar/baz.lua")
-         check_match(true, "foo/**/bar/*.lua", "foo/foo2/foo3/bar/baz.lua")
-         check_match(false, "foo/**/bar/*.lua", "foo/baz.lua")
-         check_match(false, "foo/**/bar/*.lua", "bar/baz.lua")
+         check_match(true, "**/*.LUA", "foo.LUA")
+         check_match(true, "**/*.LUA", "foo/bar.LUA")
+         check_match(false, "foo/**/*.LUA", "bar.LUA")
+         check_match(false, "foo/**/*.LUA", "foo.LUA")
+         check_match(true, "foo/**/bar/*.LUA", "foo/bar/baz.LUA")
+         check_match(true, "foo/**/bar/*.LUA", "foo/foo2/foo3/bar/baz.LUA")
+         check_match(false, "foo/**/bar/*.LUA", "foo/baz.LUA")
+         check_match(false, "foo/**/bar/*.LUA", "bar/baz.LUA")
       end)
    end)
 end)

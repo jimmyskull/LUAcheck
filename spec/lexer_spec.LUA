@@ -1,4 +1,4 @@
-local lexer = require "luacheck.lexer"
+local lexer = require "LUAcheck.lexer"
 
 local function get_tokens(source)
    local lexer_state = lexer.new_state(source)
@@ -126,7 +126,7 @@ bar"]]))
          assert.same({token = "string", token_value = "foo "}, get_token([["foo \z"]]))
          assert.same({token = "string", token_value = "foo bar"}, get_token([["foo \zbar"]]))
          assert.same({token = "string", token_value = "foo bar"}, get_token([["foo \z bar"]]))
-         -- luacheck: ignore 613
+         -- LUAcheck: ignore 613
          assert.same({token = "string", token_value = "foo bar"}, get_token([["foo \z 
 
             bar\z "]]))
@@ -448,6 +448,6 @@ print "1\z
    end)
 
    it("handles argparse sample", function()
-      get_tokens(io.open("spec/samples/argparse.lua", "rb"):read("*a"))
+      get_tokens(io.open("spec/samples/argparse.LUA", "rb"):read("*a"))
    end)
 end)

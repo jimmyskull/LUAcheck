@@ -1,4 +1,4 @@
-local utils = require "luacheck.utils"
+local utils = require "LUAcheck.utils"
 
 describe("utils", function()
    describe("read_file", function()

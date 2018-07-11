@@ -1,63 +1,63 @@
-package = "luacheck"
+package = "LUAcheck"
 version = "dev-1"
 source = {
-   url = "git+https://github.com/mpeterv/luacheck.git"
+   url = "git+https://github.com/mpeterv/LUAcheck.git"
 }
 description = {
-   summary = "A static analyzer and a linter for Lua",
+   summary = "A static analyzer and a linter for LUA",
    detailed = [[
-Luacheck is a command-line tool for linting and static analysis of Lua code. It is able to spot usage of undefined global variables, unused local variables and a few other typical problems within Lua programs.
+LUAcheck is a command-line tool for linting and static analysis of LUA code. It is able to spot usage of undefined global variables, unused local variables and a few other typical problems within LUA programs.
 ]],
-   homepage = "https://github.com/mpeterv/luacheck",
+   homepage = "https://github.com/mpeterv/LUAcheck",
    license = "MIT"
 }
 dependencies = {
-   "lua >= 5.1, < 5.4",
-   "luafilesystem >= 1.6.3"
+   "LUA >= 5.1, < 5.4",
+   "LUAfilesystem >= 1.6.3"
 }
 build = {
    type = "builtin",
    modules = {
-      luacheck = "src/luacheck/init.lua",
-      ["luacheck.argparse"] = "src/luacheck/argparse.lua",
-      ["luacheck.builtin_standards"] = "src/luacheck/builtin_standards.lua",
-      ["luacheck.cache"] = "src/luacheck/cache.lua",
-      ["luacheck.check"] = "src/luacheck/check.lua",
-      ["luacheck.config"] = "src/luacheck/config.lua",
-      ["luacheck.core_utils"] = "src/luacheck/core_utils.lua",
-      ["luacheck.detect_bad_whitespace"] = "src/luacheck/detect_bad_whitespace.lua",
-      ["luacheck.detect_cyclomatic_complexity"] = "src/luacheck/detect_cyclomatic_complexity.lua",
-      ["luacheck.detect_globals"] = "src/luacheck/detect_globals.lua",
-      ["luacheck.detect_uninit_access"] = "src/luacheck/detect_uninit_access.lua",
-      ["luacheck.detect_unreachable_code"] = "src/luacheck/detect_unreachable_code.lua",
-      ["luacheck.detect_unused_locals"] = "src/luacheck/detect_unused_locals.lua",
-      ["luacheck.detect_unused_rec_funcs"] = "src/luacheck/detect_unused_rec_funcs.lua",
-      ["luacheck.expand_rockspec"] = "src/luacheck/expand_rockspec.lua",
-      ["luacheck.filter"] = "src/luacheck/filter.lua",
-      ["luacheck.format"] = "src/luacheck/format.lua",
-      ["luacheck.fs"] = "src/luacheck/fs.lua",
-      ["luacheck.globbing"] = "src/luacheck/globbing.lua",
-      ["luacheck.inline_options"] = "src/luacheck/inline_options.lua",
-      ["luacheck.lexer"] = "src/luacheck/lexer.lua",
-      ["luacheck.lfs_fs"] = "src/luacheck/lfs_fs.lua",
-      ["luacheck.linearize"] = "src/luacheck/linearize.lua",
-      ["luacheck.love_standard"] = "src/luacheck/love_standard.lua",
-      ["luacheck.lua_fs"] = "src/luacheck/lua_fs.lua",
-      ["luacheck.main"] = "src/luacheck/main.lua",
-      ["luacheck.name_functions"] = "src/luacheck/name_functions.lua",
-      ["luacheck.multithreading"] = "src/luacheck/multithreading.lua",
-      ["luacheck.ngx_standard"] = "src/luacheck/ngx_standard.lua",
-      ["luacheck.options"] = "src/luacheck/options.lua",
-      ["luacheck.parser"] = "src/luacheck/parser.lua",
-      ["luacheck.resolve_locals"] = "src/luacheck/resolve_locals.lua",
-      ["luacheck.runner"] = "src/luacheck/runner.lua",
-      ["luacheck.standards"] = "src/luacheck/standards.lua",
-      ["luacheck.utils"] = "src/luacheck/utils.lua",
-      ["luacheck.version"] = "src/luacheck/version.lua"
+      LUAcheck = "src/LUAcheck/init.LUA",
+      ["LUAcheck.argparse"] = "src/LUAcheck/argparse.LUA",
+      ["LUAcheck.builtin_standards"] = "src/LUAcheck/builtin_standards.LUA",
+      ["LUAcheck.cache"] = "src/LUAcheck/cache.LUA",
+      ["LUAcheck.check"] = "src/LUAcheck/check.LUA",
+      ["LUAcheck.config"] = "src/LUAcheck/config.LUA",
+      ["LUAcheck.core_utils"] = "src/LUAcheck/core_utils.LUA",
+      ["LUAcheck.detect_bad_whitespace"] = "src/LUAcheck/detect_bad_whitespace.LUA",
+      ["LUAcheck.detect_cyclomatic_complexity"] = "src/LUAcheck/detect_cyclomatic_complexity.LUA",
+      ["LUAcheck.detect_globals"] = "src/LUAcheck/detect_globals.LUA",
+      ["LUAcheck.detect_uninit_access"] = "src/LUAcheck/detect_uninit_access.LUA",
+      ["LUAcheck.detect_unreachable_code"] = "src/LUAcheck/detect_unreachable_code.LUA",
+      ["LUAcheck.detect_unused_locals"] = "src/LUAcheck/detect_unused_locals.LUA",
+      ["LUAcheck.detect_unused_rec_funcs"] = "src/LUAcheck/detect_unused_rec_funcs.LUA",
+      ["LUAcheck.expand_rockspec"] = "src/LUAcheck/expand_rockspec.LUA",
+      ["LUAcheck.filter"] = "src/LUAcheck/filter.LUA",
+      ["LUAcheck.format"] = "src/LUAcheck/format.LUA",
+      ["LUAcheck.fs"] = "src/LUAcheck/fs.LUA",
+      ["LUAcheck.globbing"] = "src/LUAcheck/globbing.LUA",
+      ["LUAcheck.inline_options"] = "src/LUAcheck/inline_options.LUA",
+      ["LUAcheck.lexer"] = "src/LUAcheck/lexer.LUA",
+      ["LUAcheck.lfs_fs"] = "src/LUAcheck/lfs_fs.LUA",
+      ["LUAcheck.linearize"] = "src/LUAcheck/linearize.LUA",
+      ["LUAcheck.love_standard"] = "src/LUAcheck/love_standard.LUA",
+      ["LUAcheck.LUA_fs"] = "src/LUAcheck/LUA_fs.LUA",
+      ["LUAcheck.main"] = "src/LUAcheck/main.LUA",
+      ["LUAcheck.name_functions"] = "src/LUAcheck/name_functions.LUA",
+      ["LUAcheck.multithreading"] = "src/LUAcheck/multithreading.LUA",
+      ["LUAcheck.ngx_standard"] = "src/LUAcheck/ngx_standard.LUA",
+      ["LUAcheck.options"] = "src/LUAcheck/options.LUA",
+      ["LUAcheck.parser"] = "src/LUAcheck/parser.LUA",
+      ["LUAcheck.resolve_locals"] = "src/LUAcheck/resolve_locals.LUA",
+      ["LUAcheck.runner"] = "src/LUAcheck/runner.LUA",
+      ["LUAcheck.standards"] = "src/LUAcheck/standards.LUA",
+      ["LUAcheck.utils"] = "src/LUAcheck/utils.LUA",
+      ["LUAcheck.version"] = "src/LUAcheck/version.LUA"
    },
    install = {
       bin = {
-         luacheck = "bin/luacheck.lua"
+         LUAcheck = "bin/LUAcheck.LUA"
       }
    }
 }

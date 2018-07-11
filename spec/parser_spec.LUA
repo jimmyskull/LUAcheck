@@ -1,4 +1,4 @@
-local parser = require "luacheck.parser"
+local parser = require "LUAcheck.parser"
 
 local function strip_locations(ast)
    ast.location = nil

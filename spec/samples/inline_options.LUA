@@ -1,35 +1,35 @@
--- luacheck: ignore 4
--- luacheck: ignore foo bar
+-- LUAcheck: ignore 4
+-- LUAcheck: ignore foo bar
 foo()
 bar()
 
-local function f(a) -- luacheck: no unused args
-   -- luacheck: globals baz
+local function f(a) -- LUAcheck: no unused args
+   -- LUAcheck: globals baz
    foo()
    bar()
    baz()
-   qu() -- luacheck: globals qu
+   qu() -- LUAcheck: globals qu
    qu()
 end
 
-baz() -- luacheck should ignore this comment
+baz() -- LUAcheck should ignore this comment
 
--- luacheck: push ignore 2/f
+-- LUAcheck: push ignore 2/f
 local f
--- luacheck: push ignore 2/g
+-- LUAcheck: push ignore 2/g
 local g
--- luacheck: pop
+-- LUAcheck: pop
 local f, g
--- luacheck: pop
+-- LUAcheck: pop
 local f, g
 
--- luacheck: push
-local function f() --luacheck: ignore
-   -- luacheck: pop
+-- LUAcheck: push
+local function f() --LUAcheck: ignore
+   -- LUAcheck: pop
 end
 
--- luacheck: ignore 5
+-- LUAcheck: ignore 5
 do end
--- luacheck: enable 54
+-- LUAcheck: enable 54
 do end
 if false then end

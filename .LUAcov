@@ -1,1 +1,1 @@
-return require "spec.helper".luacov_config("")
+return require "spec.helper".LUAcov_config("")

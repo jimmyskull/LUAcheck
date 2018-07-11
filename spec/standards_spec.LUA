@@ -1,4 +1,4 @@
-local standards = require "luacheck.standards"
+local standards = require "LUAcheck.standards"
 
 describe("standards", function()
    describe("validate_std_table", function()

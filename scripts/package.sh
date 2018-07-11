@@ -2,8 +2,8 @@
 set -eu
 set -o pipefail
 
-# Creates rockspec and source rock for a new Luacheck release given version number.
-# Should be executed from root Luacheck directory.
+# Creates rockspec and source rock for a new LUAcheck release given version number.
+# Should be executed from root LUAcheck directory.
 # Resulting rockspec and rock will be in `package/`.
 
 version="$1"
@@ -14,26 +14,26 @@ cd package
 
 
 echo
-echo "=== Creating rockspec for Luacheck $version ==="
+echo "=== Creating rockspec for LUAcheck $version ==="
 echo
 
-luarocks new-version ../luacheck-dev-1.rockspec --tag="$version"
+LUArocks new-version ../LUAcheck-dev-1.rockspec --tag="$version"
 
 echo
-echo "=== Copying Luacheck files ==="
+echo "=== Copying LUAcheck files ==="
 echo
 
-mkdir luacheck
-cp -r ../src luacheck
-mkdir luacheck/bin
-cp ../bin/luacheck.lua luacheck/bin
-cp -r ../doc luacheck
-cp ../README.md ../CHANGELOG.md ../LICENSE luacheck
+mkdir LUAcheck
+cp -r ../src LUAcheck
+mkdir LUAcheck/bin
+cp ../bin/LUAcheck.LUA LUAcheck/bin
+cp -r ../doc LUAcheck
+cp ../README.md ../CHANGELOG.md ../LICENSE LUAcheck
 
 echo
-echo "=== Packing source rock for Luacheck $version ==="
+echo "=== Packing source rock for LUAcheck $version ==="
 echo
 
-zip -r luacheck-"$version"-1.src.rock luacheck luacheck-"$version"-1.rockspec
+zip -r LUAcheck-"$version"-1.src.rock LUAcheck LUAcheck-"$version"-1.rockspec
 
 cd ..

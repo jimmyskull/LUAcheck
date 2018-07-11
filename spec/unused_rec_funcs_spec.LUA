@@ -1,9 +1,9 @@
-local core_utils = require "luacheck.core_utils"
-local detect_unused_rec_funcs = require "luacheck.detect_unused_rec_funcs"
-local linearize = require "luacheck.linearize"
-local name_functions = require "luacheck.name_functions"
-local parser = require "luacheck.parser"
-local resolve_locals = require "luacheck.resolve_locals"
+local core_utils = require "LUAcheck.core_utils"
+local detect_unused_rec_funcs = require "LUAcheck.detect_unused_rec_funcs"
+local linearize = require "LUAcheck.linearize"
+local name_functions = require "LUAcheck.name_functions"
+local parser = require "LUAcheck.parser"
+local resolve_locals = require "LUAcheck.resolve_locals"
 
 local function get_warnings(src)
    local ast = parser.parse(src)

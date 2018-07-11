@@ -1,4 +1,4 @@
-local options = require "luacheck.options"
+local options = require "LUAcheck.options"
 
 describe("options", function()
    describe("validate", function()
@@ -54,11 +54,11 @@ describe("options", function()
          assert.equal("invalid value of option 'max_line_length': number or false expected, got string", err)
 
          ok, err = options.validate(options.all_options, {
-            std = "+lua51+luaaot",
+            std = "+LUA51+LUAaot",
             redefined = false
          })
          assert.is_false(ok)
-         assert.equal("invalid value of option 'std': unknown std 'luaaot'", err)
+         assert.equal("invalid value of option 'std': unknown std 'LUAaot'", err)
 
          ok, err = options.validate(options.all_options, {
             std = {read_globals = {1}},
@@ -129,7 +129,7 @@ describe("options", function()
             },
          }).globals, options.normalize({
             {
-               std = "lua51+lua52+lua53+luajit"
+               std = "LUA51+LUA52+LUA53+LUAjit"
             },
          }).globals)
       end)
@@ -137,7 +137,7 @@ describe("options", function()
       it("allows std addition", function()
          assert.same(options.normalize({
             {
-               std = "lua52 + busted"
+               std = "LUA52 + busted"
             },
          }).globals, options.normalize({
             {
@@ -147,7 +147,7 @@ describe("options", function()
                std = "none"
             },
             {
-               std = "+lua52+busted"
+               std = "+LUA52+busted"
             }
          }).globals)
       end)
@@ -155,7 +155,7 @@ describe("options", function()
       it("considers read-only and regular globals", function()
          local opts = options.normalize({
             {
-               std = "lua52",
+               std = "LUA52",
                globals = {"foo", "bar", "removed"},
                read_globals = {"baz"}
             }, {

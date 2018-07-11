@@ -1,12 +1,12 @@
-local expand_rockspec = require "luacheck.expand_rockspec"
+local expand_rockspec = require "LUAcheck.expand_rockspec"
 
 describe("expand_rockspec", function()
-   it("returns sorted array of lua files related to a rock", function()
+   it("returns sorted array of LUA files related to a rock", function()
       assert.same({
-         "bar.lua",
-         "baz.lua",
-         "bin.lua",
-         "foo.lua"
+         "bar.LUA",
+         "baz.LUA",
+         "bin.LUA",
+         "foo.LUA"
       }, expand_rockspec("spec/folder/rockspec"))
    end)
 

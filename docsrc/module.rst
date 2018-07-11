@@ -1,17 +1,17 @@
-Luacheck module
+LUAcheck module
 ===============
 
-Use ``local luacheck = require "luacheck"`` to import ``luacheck`` module. It contains the following functions:
+Use ``local LUAcheck = require "LUAcheck"`` to import ``LUAcheck`` module. It contains the following functions:
 
-* ``luacheck.get_report(source)``: Given source string, returns analysis data (a table).
-* ``luacheck.process_reports(reports, options)``: Processes array of analysis reports and applies options. ``reports[i]`` uses ``options``, ``options[i]``, ``options[i][1]``, ``options[i][2]``, ... as options, overriding each other in that order. Options table is a table with fields similar to config options; see :ref:`options`. Analysis reports with field ``fatal`` are ignored. ``process_reports`` returns final report, see :ref:`report`.
-* ``luacheck.check_strings(sources, options)``: Checks array of sources using options, returns final report. Tables with field ``fatal`` within ``sources`` array are ignored.
-* ``luacheck.check_files(files, options)``: Checks array of files using options, returns final report. Open file handles can passed instead of filenames, in which case they will be read till EOF and closed.
-* ``luacheck.get_message(issue)``: Returns a string message for an issue, see :ref:`report`.
+* ``LUAcheck.get_report(source)``: Given source string, returns analysis data (a table).
+* ``LUAcheck.process_reports(reports, options)``: Processes array of analysis reports and applies options. ``reports[i]`` uses ``options``, ``options[i]``, ``options[i][1]``, ``options[i][2]``, ... as options, overriding each other in that order. Options table is a table with fields similar to config options; see :ref:`options`. Analysis reports with field ``fatal`` are ignored. ``process_reports`` returns final report, see :ref:`report`.
+* ``LUAcheck.check_strings(sources, options)``: Checks array of sources using options, returns final report. Tables with field ``fatal`` within ``sources`` array are ignored.
+* ``LUAcheck.check_files(files, options)``: Checks array of files using options, returns final report. Open file handles can passed instead of filenames, in which case they will be read till EOF and closed.
+* ``LUAcheck.get_message(issue)``: Returns a string message for an issue, see :ref:`report`.
 
-``luacheck._VERSION`` contains Luacheck version as a string in ``MAJOR.MINOR.PATCH`` format.
+``LUAcheck._VERSION`` contains LUAcheck version as a string in ``MAJOR.MINOR.PATCH`` format.
 
-Using ``luacheck`` as a function is equivalent to calling ``luacheck.check_files``.
+Using ``LUAcheck`` as a function is equivalent to calling ``LUAcheck.check_files``.
 
 .. _report:
 

@@ -1,3 +1,3 @@
 return {
-   std = "lua52"
+   std = "LUA52"
 }

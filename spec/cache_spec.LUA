@@ -1,5 +1,5 @@
-local cache = require "luacheck.cache"
-local utils = require "luacheck.utils"
+local cache = require "LUAcheck.cache"
+local utils = require "LUAcheck.utils"
 
 local actual_format_version
 
@@ -14,7 +14,7 @@ end)
 
 describe("cache", function()
    describe("serialize", function()
-      -- luacheck: no max line length
+      -- LUAcheck: no max line length
 
       it("returns serialized result", function()
          assert.same(

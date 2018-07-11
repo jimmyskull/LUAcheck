@@ -1,4 +1,4 @@
-local filter_full = require "luacheck.filter".filter
+local filter_full = require "LUAcheck.filter".filter
 
 local function filter(issue_arrays, opts)
    local report = {}

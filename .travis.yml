@@ -2,31 +2,31 @@ language: python
 sudo: false
 
 env:
-  - LUA="lua=5.1"
-  - LUA="lua=5.2"
-  - LUA="lua=5.3"
-  - LUA="luajit=2.0"
-  - LUA="luajit=2.1"
+  - LUA="LUA=5.1"
+  - LUA="LUA=5.2"
+  - LUA="LUA=5.3"
+  - LUA="LUAjit=2.0"
+  - LUA="LUAjit=2.1"
 
 install:
   - pip install hererocks
   - pip install codecov
   - hererocks here --$LUA -r latest
   - source here/bin/activate
-  - luarocks install lanes
-  - luarocks install busted
-  - luarocks install cluacov
+  - LUArocks install lanes
+  - LUArocks install busted
+  - LUArocks install cLUAcov
 
 script:
   - busted -c
-  - lua -e 'package.path="./src/?.lua;./src/?/init.lua;"..package.path' -lluacov bin/luacheck.lua luacheck-dev-1.rockspec -j2
-  - lua -e 'package.preload.lfs=error;package.path="./src/?.lua;./src/?/init.lua;"..package.path' -lluacov bin/luacheck.lua src | grep 'I/O error'
-  - lua -e 'package.preload.lanes=error;package.path="./src/?.lua;./src/?/init.lua;"..package.path' -lluacov bin/luacheck.lua --version | grep 'Not found'
-  - lua install.lua path/to/luacheck
+  - LUA -e 'package.path="./src/?.LUA;./src/?/init.LUA;"..package.path' -lLUAcov bin/LUAcheck.LUA LUAcheck-dev-1.rockspec -j2
+  - LUA -e 'package.preload.lfs=error;package.path="./src/?.LUA;./src/?/init.LUA;"..package.path' -lLUAcov bin/LUAcheck.LUA src | grep 'I/O error'
+  - LUA -e 'package.preload.lanes=error;package.path="./src/?.LUA;./src/?/init.LUA;"..package.path' -lLUAcov bin/LUAcheck.LUA --version | grep 'Not found'
+  - LUA install.LUA path/to/LUAcheck
   - mv src src2
-  - path/to/luacheck/bin/luacheck spec/*.lua
+  - path/to/LUAcheck/bin/LUAcheck spec/*.LUA
   - mv src2 src
 
 after_script:
-  - luacov
-  - codecov -f luacov.report.out -X gcov
+  - LUAcov
+  - codecov -f LUAcov.report.out -X gcov

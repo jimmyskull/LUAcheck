@@ -1,4 +1,4 @@
-local format = require "luacheck.format".format
+local format = require "LUAcheck.format".format
 
 local function mark_colors(s)
    return (s:gsub("\27%[%d+m", "\27"):gsub("\27+", "#"))
@@ -10,14 +10,14 @@ describe("format", function()
 
     stdin:2:7: unused global variable 'foo'
 
-Checking foo.lua                                  1 warning
+Checking foo.LUA                                  1 warning
 
-    foo.lua:2:7: empty statement
+    foo.LUA:2:7: empty statement
 
-Checking bar.lua                                  OK
-Checking baz.lua                                  1 error
+Checking bar.LUA                                  OK
+Checking baz.LUA                                  1 error
 
-    baz.lua:4:3: something went wrong
+    baz.LUA:4:3: something went wrong
 
 Total: 2 warnings / 1 error in 4 files]], format({
    warnings = 2,
@@ -47,7 +47,7 @@ Total: 2 warnings / 1 error in 4 files]], format({
          msg = "something went wrong"
       }
    }
-}, {"stdin", "foo.lua", "bar.lua", "baz.lua"}, {color = false}))
+}, {"stdin", "foo.LUA", "bar.LUA", "baz.LUA"}, {color = false}))
    end)
 
    it("does not output OK messages with options.quiet >= 1", function()
@@ -55,14 +55,14 @@ Total: 2 warnings / 1 error in 4 files]], format({
 
     stdin:2:7: unused global variable 'foo'
 
-Checking foo.lua                                  1 warning / 1 error
+Checking foo.LUA                                  1 warning / 1 error
 
-    foo.lua:2:7: unused global variable 'foo'
-    foo.lua:3:10: bad, bad inline option
+    foo.LUA:2:7: unused global variable 'foo'
+    foo.LUA:3:10: bad, bad inline option
 
-Checking baz.lua                                  Syntax error
+Checking baz.LUA                                  Syntax error
 
-    baz.lua: error message
+    baz.LUA: error message
 
 Total: 2 warnings / 1 error in 3 files, couldn't check 1 file]], format({
    warnings = 2,
@@ -95,13 +95,13 @@ Total: 2 warnings / 1 error in 3 files, couldn't check 1 file]], format({
       fatal = "syntax",
       msg = "error message"
    }
-}, {"stdin", "foo.lua", "bar.lua", "baz.lua"}, {quiet = 1, color = false}))
+}, {"stdin", "foo.LUA", "bar.LUA", "baz.LUA"}, {quiet = 1, color = false}))
    end)
 
    it("does not output warnings with options.quiet >= 2", function()
       assert.equal([[Checking stdin                                    1 warning
-Checking foo.lua                                  1 warning
-Checking baz.lua                                  Syntax error
+Checking foo.LUA                                  1 warning
+Checking baz.LUA                                  Syntax error
 
 Total: 2 warnings / 0 errors in 3 files, couldn't check 1 file]], format({
    warnings = 2,
@@ -127,7 +127,7 @@ Total: 2 warnings / 0 errors in 3 files, couldn't check 1 file]], format({
    {
       fatal = "syntax"
    }
-}, {"stdin", "foo.lua", "bar.lua", "baz.lua"}, {quiet = 2, color = false}))
+}, {"stdin", "foo.LUA", "bar.LUA", "baz.LUA"}, {quiet = 2, color = false}))
    end)
 
    it("does not output file info with options.quiet == 3", function()
@@ -155,7 +155,7 @@ Total: 2 warnings / 0 errors in 3 files, couldn't check 1 file]], format({
    {
       fatal = "syntax"
    }
-}, {"stdin", "foo.lua", "bar.lua", "baz.lua"}, {quiet = 3, color = false}))
+}, {"stdin", "foo.LUA", "bar.LUA", "baz.LUA"}, {quiet = 3, color = false}))
    end)
 
    it("colors output by default", function()
@@ -167,14 +167,14 @@ Total: 2 warnings / 0 errors in 3 files, couldn't check 1 file]], format({
 
     stdin:2:7: unused global variable #foo#
 
-Checking foo.lua                                  #1 warning#
+Checking foo.LUA                                  #1 warning#
 
-    foo.lua:2:7: unused global variable #foo#
+    foo.LUA:2:7: unused global variable #foo#
 
-Checking bar.lua                                  #OK#
-Checking baz.lua                                  #Syntax error#
+Checking bar.LUA                                  #OK#
+Checking baz.LUA                                  #Syntax error#
 
-    baz.lua: error message
+    baz.LUA: error message
 
 Total: #2# warnings / #0# errors in 3 files, couldn't check 1 file]], mark_colors(format({
    warnings = 2,
@@ -201,6 +201,6 @@ Total: #2# warnings / #0# errors in 3 files, couldn't check 1 file]], mark_color
       fatal = "syntax",
       msg = "error message"
    }
-}, {"stdin", "foo.lua", "bar.lua", "baz.lua"}, {})))
+}, {"stdin", "foo.LUA", "bar.LUA", "baz.LUA"}, {})))
    end)
 end)

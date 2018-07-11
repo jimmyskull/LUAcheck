@@ -1,6 +1,6 @@
-local linearize = require "luacheck.linearize"
-local parser = require "luacheck.parser"
-local resolve_locals = require "luacheck.resolve_locals"
+local linearize = require "LUAcheck.linearize"
+local parser = require "LUAcheck.parser"
+local resolve_locals = require "LUAcheck.resolve_locals"
 
 local function used_variables_to_string(item)
    local buf = {}

@@ -1,16 +1,16 @@
 build = {
    type = "builtin",
    modules = {
-      foo = "foo.lua",
-      bar = "bar.lua",
+      foo = "foo.LUA",
+      bar = "bar.LUA",
       qu = "qu.c"
    },
    install = {
-      lua = {
-         baz = "baz.lua"
+      LUA = {
+         baz = "baz.LUA"
       },
       bin = {
-         bin = "bin.lua"
+         bin = "bin.LUA"
       }
    }
 }

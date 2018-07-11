@@ -1,8 +1,8 @@
-local core_utils = require "luacheck.core_utils"
-local detect_cyclomatic_complexity = require "luacheck.detect_cyclomatic_complexity"
-local linearize = require "luacheck.linearize"
-local name_functions = require "luacheck.name_functions"
-local parser = require "luacheck.parser"
+local core_utils = require "LUAcheck.core_utils"
+local detect_cyclomatic_complexity = require "LUAcheck.detect_cyclomatic_complexity"
+local linearize = require "LUAcheck.linearize"
+local name_functions = require "LUAcheck.name_functions"
+local parser = require "LUAcheck.parser"
 
 local function get_warnings(src)
    local ast = parser.parse(src)
